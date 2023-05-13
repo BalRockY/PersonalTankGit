@@ -35,6 +35,16 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         tankCon = SpawnManager.Instance.theTank.GetComponent<TankController>();
+
+    }
+
+    void PlayerSetup()
+    {
+        hp = tankCon.hp;
+        dmg = tankCon.dmg;
+        kills = 0;
+        lvl = 0;
+        exp = 0;
     }
 
     // Update is called once per frame
@@ -45,18 +55,23 @@ public class PlayerManager : MonoBehaviour
 
     void playerhit(float dmg)
     {
+        // Take Damage
         hp -= dmg;
+
+        // Update UI
+        UIManager.Instance.hp = hp;
+
+        // Check if dead
+        if (hp <= 0) tankCon.Die(2);
     }
 
     void playerkill()
     {
+        // Add to killscore
         kills++;
 
-    }
-
-    void playerdeath()
-    {
-
+        // Update UI
+        UIManager.Instance.kills = kills;
     }
 
     void GainEXP(int expEarned)
@@ -70,6 +85,7 @@ public class PlayerManager : MonoBehaviour
         if(exp >= lvl * 100)
         {
             lvl++;
+            //UIManager.Instance.
         }
     }
 }
