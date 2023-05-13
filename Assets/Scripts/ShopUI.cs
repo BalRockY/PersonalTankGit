@@ -6,16 +6,19 @@ using TMPro;
 
 public class ShopUI : MonoBehaviour
 {
-    private Button upgradeShotCount_Button;
-    private TMP_Text upgradeShotCount_ButtonText;
-    private Button upgradeFiringRate_Button;
-    private TMP_Text upgradeFiringRate_ButtonText;
-    private Button upgradeReloadTime_Button;
-    private TMP_Text upgradeReloadTime_ButtonText;
-    private GunController gunController;
+    private Button[] UpgradeButtons;
+    private TMP_Text[] UpgradeButtonsTXT;
+    private Button Btn1;
+    private TMP_Text Btn1TXT;
+    private Button Btn2;
+    private TMP_Text Btn2TXT;
+    private Button Btn3;
+    private TMP_Text Btn3TXT;
     private TMP_Text announceText;
-    private Button exitShop_Button;
-    private TMP_Text exitShop_ButtonText;
+    private Button ExitUIBtn;
+    private TMP_Text ExitUIBtnTXT;
+
+    public List<int> CurUpgrades = new List<int>();
 
     private bool enoughMoney = true;
 
@@ -24,44 +27,61 @@ public class ShopUI : MonoBehaviour
 
     private void Awake()
     {
-        upgradeShotCount_Button = this.gameObject.transform.GetChild(0).GetChild(0).GetComponent<Button>();
-        upgradeShotCount_ButtonText = upgradeShotCount_Button.transform.GetChild(0).GetComponent<TMP_Text>();
-        upgradeFiringRate_Button = this.gameObject.transform.GetChild(0).GetChild(1).GetComponent<Button>();
-        upgradeFiringRate_ButtonText = upgradeFiringRate_Button.transform.GetChild(0).GetComponent<TMP_Text>();
-        upgradeReloadTime_Button = this.gameObject.transform.GetChild(0).GetChild(2).GetComponent<Button>();
-        upgradeReloadTime_ButtonText = upgradeReloadTime_Button.transform.GetChild(0).GetComponent<TMP_Text>();
-        gunController = GameObject.Find("Gun").GetComponent<GunController>();
+        UpgradeButtons = new Button[3];
+        UpgradeButtonsTXT = new TMP_Text[3];
+
+        for (int i = 0; i < 3; i++)
+        {
+            UpgradeButtons[i] = this.gameObject.transform.GetChild(0).GetChild(i).GetComponent<Button>();
+            UpgradeButtonsTXT[i] = UpgradeButtons[i].transform.GetChild(0).GetComponent<TMP_Text>();
+        }
+
+        // Announce Text Setup
         announceText = this.gameObject.transform.GetChild(0).GetChild(3).GetComponent<TMP_Text>();
-        exitShop_Button = this.gameObject.transform.GetChild(0).GetChild(4).GetComponent<Button>();
-        exitShop_ButtonText = exitShop_Button.transform.GetChild(0).GetComponent<TMP_Text>();
+
+        // Exit Button Setup
+        ExitUIBtn = this.gameObject.transform.GetChild(0).GetChild(4).GetComponent<Button>();
+        ExitUIBtnTXT = ExitUIBtn.transform.GetChild(0).GetComponent<TMP_Text>();
     }
     private void Start()
     {
+        // Get Random Upgrade for each button in upgrade button array, adds name based on enum and a listener onClick for each button
+        do
+        {
+            int curUpgrade = Random.Range(0, System.Enum.GetValues(typeof(PlayerManager.Upgrades)).Length);
+            if (!CurUpgrades.Contains(curUpgrade))
+            {
+                CurUpgrades.Add(curUpgrade);
+                UpgradeButtonsTXT[CurUpgrades.Count-1].text = ((PlayerManager.Upgrades)curUpgrade).ToString();
+                UpgradeButtons[CurUpgrades.Count-1].onClick.AddListener(delegate { SelectedUpgrade(curUpgrade); });
+            }
+        }
+        while (CurUpgrades.Count < 3);
+            
+        // Clear announce Text
         announceText.text = "";
-        upgradeShotCount_ButtonText.text = "One extra shot: 200 bucks!";
-        upgradeShotCount_Button.onClick.AddListener(delegate { BuyTheDamnThing("shotcount"); });
-        upgradeFiringRate_ButtonText.text = "Faster firing rate: 200 bucks!";
-        upgradeFiringRate_Button.onClick.AddListener(delegate { BuyTheDamnThing("firingrate"); });
-        upgradeReloadTime_ButtonText.text = "Faster reload time: 200 bucks!";
-        upgradeReloadTime_Button.onClick.AddListener(delegate { BuyTheDamnThing("reloadtime"); });
 
-        exitShop_ButtonText.text = "Exit shop";
-        exitShop_Button.onClick.AddListener(delegate { StartCoroutine(ExitShop(2f)); });
+        // Setup Exit Button
+        ExitUIBtnTXT.text = "Cancel";
+        ExitUIBtn.onClick.AddListener(delegate { StartCoroutine(ExitShop(2f)); });
 
+        // Pauses game
         Time.timeScale = 0f;
     }
+
+    // Exit Shop
     IEnumerator ExitShop(float bye)
     {
-        upgradeFiringRate_Button.gameObject.SetActive(false);
-        upgradeShotCount_Button.gameObject.SetActive(false);
-        upgradeReloadTime_Button.gameObject.SetActive(false);
-        exitShop_Button.gameObject.SetActive(false);
+        foreach(Button btn in UpgradeButtons) btn.gameObject.SetActive(false);
+        ExitUIBtn.gameObject.SetActive(false);
         Time.timeScale = 1f;
         announceText.color = Color.magenta;
         announceText.text = "Thank you, come again!";
         yield return new WaitForSeconds(bye);
         Destroy(this.gameObject);
     }
+
+    // Announce
     IEnumerator Announce(string announcement, float wait)
     {
         if(enoughMoney == true)
@@ -82,62 +102,10 @@ public class ShopUI : MonoBehaviour
             Destroy(this.gameObject);
         }*/
     }
-    void BuyTheDamnThing(string whichUpgrade)
+    void SelectedUpgrade(int whichUpgrade)
     {
-        if (PlayerManager.Instance.cash >= 200)
-        {
-            enoughMoney = true;
-        }
-        else
-            enoughMoney = false;
-            
-        switch (whichUpgrade)
-        {
-            case "shotcount":
-                if (enoughMoney == true)
-                {
-                    gunController.shotVolleyCount += 1;
-                    PlayerManager.Instance.BuyWithCash(200);
-                    StartCoroutine(Announce("Bought a better magazine.", announceTime));
-                    StartCoroutine(ExitShop(1));
-                }
-                else if(enoughMoney == false)
-                {
-                    StartCoroutine(Announce("Not enough money for better magazine", announceTime));
-                }
-                break;
-
-            case "firingrate":
-                if (enoughMoney == true)
-                {
-                    gunController.volleyFiringSpeed *= 0.85f;
-                    PlayerManager.Instance.BuyWithCash(200);
-                    StartCoroutine(Announce("Bought improved firing rate.", announceTime));
-                    StartCoroutine(ExitShop(1));
-                }
-                else if (enoughMoney == false)
-                {
-                    StartCoroutine(Announce("Not enough money for faster firing", announceTime));
-                }
-                break;
-
-            case "reloadtime":
-                if (enoughMoney == true)
-                {
-                    gunController.reloadSpeed *= 0.75f;
-                    PlayerManager.Instance.BuyWithCash(200);
-                    StartCoroutine(Announce("Bought faster reloading", announceTime));
-                    StartCoroutine(ExitShop(1));
-                }
-                else if (enoughMoney == false)
-                {
-                    StartCoroutine(Announce("Not enough money for faster reload", announceTime));
-                }
-                break;
-
-        }
-            
-        
+        PlayerManager.Instance.Upgrade(whichUpgrade);
+        StartCoroutine(ExitShop(2));        
     }
 
     

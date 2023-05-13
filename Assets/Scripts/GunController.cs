@@ -98,9 +98,7 @@ public class GunController : MonoBehaviour
             audioSource.clip = gunShot;
             audioSource.pitch = Random.Range(0.95f, 1.05f);
 
-            audioSource.Play();
-
-            
+            audioSource.Play();            
 
             StartCoroutine(ShowGunshotSprite(interval));
             Instantiate(projectile, firepointL.position, transform.rotation);
@@ -112,7 +110,7 @@ public class GunController : MonoBehaviour
 
         }
 
-        yield return new WaitForSeconds(reloadSpeed); //extra interval between volleys
+        //yield return new WaitForSeconds(reloadSpeed); //extra interval between volleys
         shooting = false;
         Debug.Log("Machinegun fired");
     }

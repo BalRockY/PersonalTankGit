@@ -16,17 +16,21 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    // Variables
+    // Round Stats
     public float hp;
+    public float MaxHP;
     public float dmg;
     public float cash;
     public int kills;
     public int lvl;
     public int exp;
+    public int expReq;
 
     // References
-    public TankController tankCon;
-    public GameObject LvlUpUI;
+    public GameObject tankRef;
+    public TankController tankConRef;
+    public GunController gunConRef;
+    public GameObject LvlUIRef;
 
     private void Awake()
     {
@@ -35,25 +39,23 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tankCon = SpawnManager.Instance.theTank.GetComponent<TankController>();
-        LvlUpUI = Resources.Load<GameObject>("ShopUI");
+        tankRef = SpawnManager.Instance.theTank;
+        tankConRef = tankRef.GetComponent<TankController>();
+        gunConRef = tankRef.GetComponentInChildren<GunController>();
+        LvlUIRef = Resources.Load<GameObject>("ShopUI");
         PlayerSetup();
 
     }
 
     void PlayerSetup()
     {
-        hp = tankCon.hp;
-        dmg = tankCon.dmg;
+        MaxHP = tankConRef.hp;
+        hp = MaxHP;
+        dmg = tankConRef.dmg;
         kills = 0;
         lvl = 0;
         exp = 0;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        expReq = 100;
     }
 
     public void playerhit(float dmg)
@@ -62,7 +64,7 @@ public class PlayerManager : MonoBehaviour
         hp -= dmg;
 
         // Check if dead
-        if (hp <= 0) tankCon.Die(2);
+        if (hp <= 0) StartCoroutine(tankRef.GetComponent<TankController>().Die(2f));
     }
 
     public void playerkill()
@@ -79,15 +81,78 @@ public class PlayerManager : MonoBehaviour
 
     void CheckLevelUp()
     {
-        if(exp >= (lvl+1) * 100)
+        if(exp >= expReq)
         {
             lvl++;
-            Instantiate(LvlUpUI);
+            Instantiate(LvlUIRef);
+            expReq *= 3;
         }
     }
 
-    public void BuyWithCash(float amount)
+    public enum Upgrades
     {
-        cash -= amount;
+        Vehicle_Speed,
+        Vehicle_Manuvering,
+        Weapon_Speed,
+        Weapon_TurnSpeed,
+        ShotCount,
+        MaxHP,
+        OneTimeHP,
+        Damage,
+        Acceleration
+    }
+
+
+
+    public void Upgrade(int i)
+    {
+        switch(i)
+        {
+            // Vehicle Speed
+            case 0:
+                tankConRef.maxSpeed += 0.5f;
+                break;
+
+            // Vehicle Turn Speed
+            case 1:
+                tankConRef.turnFactor+= 0.5f;
+                break;
+
+            // Weapon Speed
+            case 2:
+                gunConRef.volleyFiringSpeed -= 0.1f;
+                
+                break;
+
+            // Weapon Turn Speed
+            case 3:
+                gunConRef.speed += 0.2f;
+                break;
+
+            // ShotCout
+            case 4:
+                gunConRef.shotVolleyCount += 1;
+                break;
+
+            // MaxHP
+            case 5:
+                MaxHP += 10;
+                break;
+
+            // One Time HP
+            case 6:
+                hp = MaxHP;
+                break;
+
+            // Damage
+            case 7:
+                tankConRef.dmg += (tankConRef.dmg/2);
+                break;
+
+            // Acceleration
+            case 8:
+                tankConRef.accelerationFactor += 2f;
+                break;
+        }
     }
 }

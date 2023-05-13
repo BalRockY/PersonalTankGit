@@ -49,18 +49,9 @@ public class TankController : MonoBehaviour
     public float dmg = 10;
     public float speedAsDmgMultiplier;
 
-
-
-
-
-
-
-
     public Animator animator;
 
-    Rigidbody2D tankRB2D;
-
-    
+    Rigidbody2D tankRB2D;    
 
 
     private void Awake()
@@ -76,6 +67,15 @@ public class TankController : MonoBehaviour
     private void Start()
     {
         ps.Stop();
+        SetStats();
+    }
+
+    private void SetStats()
+    {
+        maxSpeed = 5;
+        turnFactor = 4;
+        accelerationFactor = 10;
+        
     }
 
     public IEnumerator Die(float dietime)

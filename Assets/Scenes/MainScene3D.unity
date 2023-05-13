@@ -810,12 +810,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 0
+  MaxHP: 0
   dmg: 0
   cash: 0
   kills: 0
   lvl: 0
   exp: 0
-  tankCon: {fileID: 0}
+  expReq: 0
+  tankRef: {fileID: 0}
+  tankConRef: {fileID: 0}
+  gunConRef: {fileID: 0}
+  LvlUIRef: {fileID: 0}
 --- !u!4 &727367522
 Transform:
   m_ObjectHideFlags: 0
@@ -1159,12 +1164,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   theTank: {fileID: 0}
   theShop: {fileID: 0}
-  enemySpawnInterval: 4
-  moneySpawnInterval: 10
+  enemySpawnInterval: 1
+  moneySpawnInterval: 25
   spawnScaler: 0.99996
   moneySpawnFactor: 6
-  wallSpawn1x1: 5
-  wallSpawn1x2: 5
+  wallSpawn1x1: 10
+  wallSpawn1x2: 10
 --- !u!4 &1437102901
 Transform:
   m_ObjectHideFlags: 0
