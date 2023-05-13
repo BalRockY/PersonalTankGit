@@ -56,9 +56,6 @@ public class UIManager : MonoBehaviour
     public List<GameObject> menus;
     private Button restartGame;
 
-    public float kills = 0;
-    public float cash = 0;
-    public float hp;
     private void Awake()
 
     {
@@ -89,9 +86,6 @@ public class UIManager : MonoBehaviour
     void RestartUI()
     {
         ClearMenus();
-        kills = 0;
-        cash = 0;
-        hp = 0;
         HUD();
     }
     void ClearMenus()
@@ -133,16 +127,13 @@ public class UIManager : MonoBehaviour
                 break;
         }
     }
-    
-    public void BuyWithCash(float amount)
-    {
-        cash -= amount;
-    }
+
+
     // Update is called once per frame
     void Update()
     {
-        killsText.text = "Kills: " + kills.ToString("0");
-        moneyText.text = "Cash: " + cash.ToString("0");
-        hpText.text = "HP: " + hp.ToString("0");
+        killsText.text = "Kills: " + PlayerManager.Instance.kills.ToString("0");
+        moneyText.text = "Cash: " + PlayerManager.Instance.cash.ToString("0");
+        hpText.text = "HP: " + PlayerManager.Instance.hp.ToString("0");
     }
 }

@@ -58,9 +58,6 @@ public class PlayerManager : MonoBehaviour
         // Take Damage
         hp -= dmg;
 
-        // Update UI
-        UIManager.Instance.hp = hp;
-
         // Check if dead
         if (hp <= 0) tankCon.Die(2);
     }
@@ -69,9 +66,6 @@ public class PlayerManager : MonoBehaviour
     {
         // Add to killscore
         kills++;
-
-        // Update UI
-        UIManager.Instance.kills = kills;
     }
 
     void GainEXP(int expEarned)
@@ -87,5 +81,10 @@ public class PlayerManager : MonoBehaviour
             lvl++;
             //UIManager.Instance.
         }
+    }
+
+    public void BuyWithCash(float amount)
+    {
+        cash -= amount;
     }
 }

@@ -18,7 +18,7 @@ public class moneyPickup : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Collision"))
         {
-            UIManager.Instance.cash += 50;
+            PlayerManager.Instance.cash += 50;
             Destroy(this.gameObject);
         }
     }

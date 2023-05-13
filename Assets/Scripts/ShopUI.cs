@@ -84,7 +84,7 @@ public class ShopUI : MonoBehaviour
     }
     void BuyTheDamnThing(string whichUpgrade)
     {
-        if (UIManager.Instance.cash >= 200)
+        if (PlayerManager.Instance.cash >= 200)
         {
             enoughMoney = true;
         }
@@ -97,7 +97,7 @@ public class ShopUI : MonoBehaviour
                 if (enoughMoney == true)
                 {
                     gunController.shotVolleyCount += 1;
-                    UIManager.Instance.BuyWithCash(200);
+                    PlayerManager.Instance.BuyWithCash(200);
                     StartCoroutine(Announce("Bought a better magazine.", announceTime));
                 }
                 else if(enoughMoney == false)
@@ -110,7 +110,7 @@ public class ShopUI : MonoBehaviour
                 if (enoughMoney == true)
                 {
                     gunController.volleyFiringSpeed *= 0.85f;
-                    UIManager.Instance.BuyWithCash(200);
+                    PlayerManager.Instance.BuyWithCash(200);
                     StartCoroutine(Announce("Bought improved firing rate.", announceTime));
                 }
                 else if (enoughMoney == false)
@@ -123,7 +123,7 @@ public class ShopUI : MonoBehaviour
                 if (enoughMoney == true)
                 {
                     gunController.reloadSpeed *= 0.75f;
-                    UIManager.Instance.BuyWithCash(200);
+                    PlayerManager.Instance.BuyWithCash(200);
                     StartCoroutine(Announce("Bought faster reloading", announceTime));
                 }
                 else if (enoughMoney == false)
