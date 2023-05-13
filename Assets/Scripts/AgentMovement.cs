@@ -132,7 +132,7 @@ public class AgentMovement : MonoBehaviour
         {
             if(!isStunned)
             {
-                tankScript.hp -= (attckDmg * Time.deltaTime);
+                PlayerManager.Instance.playerhit(attckDmg * Time.deltaTime);
             }
         }
     }
@@ -179,7 +179,7 @@ public class AgentMovement : MonoBehaviour
         attckDmg = 0;
         collider2D.isTrigger = true; //these are so that the the bullet hit sound get time to play before gameobject is destroyed, but enemy is still technically dead.
         sprite.enabled = false;
-        PlayerManager.Instance.kills += 1;
+        PlayerManager.Instance.playerkill();
         Instantiate(splatAnimGO, this.transform.position, Quaternion.identity);
         SpawnManager.Instance.MoneySpawn(this.transform.position);
         Destroy(agentObject, AudioManager.Instance.bulletHitFleshClips[0].length); // Wait for longest bullethitflesh clip, which is bulletHitFlesh1

@@ -53,7 +53,7 @@ public class PlayerManager : MonoBehaviour
         
     }
 
-    void playerhit(float dmg)
+    public void playerhit(float dmg)
     {
         // Take Damage
         hp -= dmg;
@@ -62,13 +62,13 @@ public class PlayerManager : MonoBehaviour
         if (hp <= 0) tankCon.Die(2);
     }
 
-    void playerkill()
+    public void playerkill()
     {
         // Add to killscore
         kills++;
     }
 
-    void GainEXP(int expEarned)
+    public void GainEXP(int expEarned)
     {
         exp += expEarned;
         CheckLevelUp();
@@ -79,7 +79,6 @@ public class PlayerManager : MonoBehaviour
         if(exp >= lvl * 100)
         {
             lvl++;
-            //UIManager.Instance.
         }
     }
 
