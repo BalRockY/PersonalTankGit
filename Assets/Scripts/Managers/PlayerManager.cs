@@ -79,7 +79,7 @@ public class PlayerManager : MonoBehaviour
 
     void CheckLevelUp()
     {
-        if(exp >= lvl * 100)
+        if(exp >= (lvl+1) * 100)
         {
             lvl++;
             Instantiate(LvlUpUI);
