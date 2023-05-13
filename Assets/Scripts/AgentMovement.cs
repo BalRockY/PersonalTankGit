@@ -47,6 +47,7 @@ public class AgentMovement : MonoBehaviour
     public bool isCloseToPlayer = false;
     public bool isTouchingPlayer = false;
 
+    public int exp = 15;
 
 
     private void Awake()
@@ -132,7 +133,7 @@ public class AgentMovement : MonoBehaviour
         {
             if(!isStunned)
             {
-                tankScript.hp -= (attckDmg * Time.deltaTime);
+                PlayerManager.Instance.playerhit(attckDmg * Time.deltaTime);
             }
         }
     }
@@ -178,8 +179,9 @@ public class AgentMovement : MonoBehaviour
         killZombieHasRun = true;
         attckDmg = 0;
         collider2D.isTrigger = true; //these are so that the the bullet hit sound get time to play before gameobject is destroyed, but enemy is still technically dead.
-        sprite.enabled = false; 
-        UIManager.Instance.kills += 1;
+        sprite.enabled = false;
+        PlayerManager.Instance.playerkill();
+        PlayerManager.Instance.GainEXP(exp);
         Instantiate(splatAnimGO, this.transform.position, Quaternion.identity);
         SpawnManager.Instance.MoneySpawn(this.transform.position);
         Destroy(agentObject, AudioManager.Instance.bulletHitFleshClips[0].length); // Wait for longest bullethitflesh clip, which is bulletHitFlesh1

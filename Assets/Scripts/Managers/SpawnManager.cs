@@ -67,7 +67,7 @@ public class SpawnManager : MonoBehaviour
                 surface.BuildNavMesh();
                 StartCoroutine(ZombieSpawner());
                 //StartCoroutine(MoneySpawn());
-                SpawnShop();
+                //SpawnShop();
                 break;
 
             case GameState.Playing:
@@ -81,7 +81,7 @@ public class SpawnManager : MonoBehaviour
                 KillZombies();
                 KillTank();
                 KillObstacles();
-                KillShop();
+                //KillShop();
                 KillLevel();
                 KillSplat();
                 KillPickups();
@@ -94,7 +94,7 @@ public class SpawnManager : MonoBehaviour
                 surface.BuildNavMesh();
                 StartCoroutine(ZombieSpawner());
                 //StartCoroutine(MoneySpawn());
-                SpawnShop();
+                //SpawnShop();
                 break;
 
             default:

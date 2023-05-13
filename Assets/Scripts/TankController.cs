@@ -49,18 +49,9 @@ public class TankController : MonoBehaviour
     public float dmg = 10;
     public float speedAsDmgMultiplier;
 
-
-
-
-
-
-
-
     public Animator animator;
 
-    Rigidbody2D tankRB2D;
-
-    
+    Rigidbody2D tankRB2D;    
 
 
     private void Awake()
@@ -76,9 +67,18 @@ public class TankController : MonoBehaviour
     private void Start()
     {
         ps.Stop();
+        SetStats();
     }
 
-    IEnumerator Die(float dietime)
+    private void SetStats()
+    {
+        maxSpeed = 5;
+        turnFactor = 4;
+        accelerationFactor = 10;
+        
+    }
+
+    public IEnumerator Die(float dietime)
     {
         aSource.PlayOneShot(deathExplosion);
         ps.Play();
@@ -89,15 +89,15 @@ public class TankController : MonoBehaviour
     }
     private void Update()
     {
-        UIManager.Instance.hp = hp;
-        if (hp <= 0)
-        {
-            if(dead == false)
-            {
-                dead = true;
-                StartCoroutine(Die(dieTime));
-            }
-        }
+        //UIManager.Instance.hp = hp;
+        //if (hp <= 0)
+        //{
+        //    if(dead == false)
+        //    {
+        //        dead = true;
+        //        StartCoroutine(Die(dieTime));
+        //    }
+        //}
 
         PlayAnimation();
         /*
@@ -129,9 +129,7 @@ public class TankController : MonoBehaviour
     }
 
     private void FixedUpdate()
-    {
-
-        
+    {  
 
 
         ApplyEngineForce();
@@ -181,11 +179,7 @@ public class TankController : MonoBehaviour
         */
     }
 
-   void CalculateHP()
-    {
-        
-        
-    }
+    // Movement Functions
 
     IEnumerator SpeedCalculation()
     {
@@ -264,6 +258,8 @@ public class TankController : MonoBehaviour
         tankRB2D.velocity = forwardVelocity + rightVelocity * driftFactor;
     }
 
+    // Input Functions
+
     public void SetInputVector(Vector2 inputVector)
     {
         /*if (velocityVsUp > 0 || accelerationInput > 0)
@@ -274,6 +270,8 @@ public class TankController : MonoBehaviour
         accelerationInput = inputVector.y;
 
     }
+
+    // Collision Functions
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
