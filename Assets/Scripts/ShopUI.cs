@@ -99,6 +99,7 @@ public class ShopUI : MonoBehaviour
                     gunController.shotVolleyCount += 1;
                     PlayerManager.Instance.BuyWithCash(200);
                     StartCoroutine(Announce("Bought a better magazine.", announceTime));
+                    ExitShop(1);
                 }
                 else if(enoughMoney == false)
                 {
@@ -112,6 +113,7 @@ public class ShopUI : MonoBehaviour
                     gunController.volleyFiringSpeed *= 0.85f;
                     PlayerManager.Instance.BuyWithCash(200);
                     StartCoroutine(Announce("Bought improved firing rate.", announceTime));
+                    ExitShop(1);
                 }
                 else if (enoughMoney == false)
                 {
@@ -125,6 +127,7 @@ public class ShopUI : MonoBehaviour
                     gunController.reloadSpeed *= 0.75f;
                     PlayerManager.Instance.BuyWithCash(200);
                     StartCoroutine(Announce("Bought faster reloading", announceTime));
+                    ExitShop(1);
                 }
                 else if (enoughMoney == false)
                 {

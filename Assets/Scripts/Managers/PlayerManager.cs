@@ -26,6 +26,7 @@ public class PlayerManager : MonoBehaviour
 
     // References
     public TankController tankCon;
+    public GameObject LvlUpUI;
 
     private void Awake()
     {
@@ -35,6 +36,8 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         tankCon = SpawnManager.Instance.theTank.GetComponent<TankController>();
+        LvlUpUI = Resources.Load<GameObject>("ShopUI");
+        PlayerSetup();
 
     }
 
@@ -79,6 +82,7 @@ public class PlayerManager : MonoBehaviour
         if(exp >= lvl * 100)
         {
             lvl++;
+            Instantiate(LvlUpUI);
         }
     }
 
