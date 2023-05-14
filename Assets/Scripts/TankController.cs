@@ -84,7 +84,7 @@ public class TankController : MonoBehaviour
         ps.Play();
             yield return new WaitForSeconds(dietime);
         ps.Stop();
-            gameManager.Instance.UpdateGameState(GameState.GameOver);
+            GameManager.Instance.UpdateGameState(GameState.GameOver);
             
     }
     private void Update()

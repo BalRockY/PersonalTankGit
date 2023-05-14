@@ -26,7 +26,7 @@ public class moneyPickup : MonoBehaviour
     private void Update()
     {
         var tankDistance = Mathf.Sqrt(Mathf.Pow(tank.transform.position.x - transform.position.x, 2) + Mathf.Pow(tank.transform.position.y - transform.position.y, 2));
-        if (tankDistance < gameManager.Instance.renderDistance)
+        if (tankDistance < GameManager.Instance.renderDistance)
         {
             sprite.enabled = true;
 
