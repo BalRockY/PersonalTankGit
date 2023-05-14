@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class gameManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    private static gameManager _instance;
-    public static gameManager Instance
+    // Define and create instance of manager
+    private static GameManager _instance;
+    public static GameManager Instance
     {
         get
         {
@@ -17,13 +18,39 @@ public class gameManager : MonoBehaviour
         }
     }
     
-
+    // Game Variables
     public GameState State;
     public static event System.Action<GameState> OnGameStateChanged;
 
+    // Render Distance
     [SerializeField]
     public int renderDistance = 20;
 
+
+    private void Awake()
+    {
+        // Setup Manager
+        _instance = this;
+    }
+
+    // Start is called before the first frame update
+    private void Start()
+    {
+        UpdateGameState(GameState.Start);
+        Physics.IgnoreLayerCollision(8, 3);
+        Physics.IgnoreLayerCollision(8, 8);
+    }
+
+    // Update is called once per frame
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            UpdateGameState(GameState.GameOver);
+        }
+    }
+
+    // State Handlers
     public void UpdateGameState(GameState newState)
     {
         State = newState;
@@ -59,60 +86,32 @@ public class gameManager : MonoBehaviour
 
         OnGameStateChanged?.Invoke(newState);
     }
-
-    private CameraController camControl;
-    public void HandleStartGame()
+    void HandleStartGame()
     {
     }
-    public void HandleMainMenu()
+    void HandleMainMenu()
     {
 
     }
-    public void HandlePlayingGame()
+    void HandlePlayingGame()
     {
         Time.timeScale = 1f;
     }
-
-    public void HandlePauseGame()
+    void HandlePauseGame()
     {
         Time.timeScale = 0f;
     }
-    public void HandleGameOver()
+    void HandleGameOver()
     {
 
-    }
-    public void HandleShop()
-    {
-        
     }
     void HandleRestartGame()
     {
 
     }
-
-
-    private void Awake()
-    {
-        _instance = this;
-        
-    }
-
-    private void Start()
-    {
-        UpdateGameState(GameState.Start);
-        Physics.IgnoreLayerCollision(8, 3);
-        Physics.IgnoreLayerCollision(8, 8);
-    }
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            UpdateGameState(GameState.GameOver);
-        }
-    }
-
-
 }
+
+// Gamestates Enum
 public enum GameState
 {
     MainMenu,
@@ -120,6 +119,5 @@ public enum GameState
     Playing,
     Paused,
     GameOver,
-    RestartGame,
-    Shop
+    RestartGame
 }

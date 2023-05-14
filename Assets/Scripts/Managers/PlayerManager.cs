@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    // Define and create instance of manager
     private static PlayerManager _instance;
     public static PlayerManager Instance
     {
@@ -32,22 +33,24 @@ public class PlayerManager : MonoBehaviour
     public GunController gunConRef;
     public GameObject LvlUIRef;
 
-    private void Awake()
+    void Awake()
     {
+        // Setup Manager
         _instance = this;
     }
+
     // Start is called before the first frame update
     void Start()
     {
-        tankRef = SpawnManager.Instance.theTank;
+        tankRef = RoundManager.Instance.theTank;
         tankConRef = tankRef.GetComponent<TankController>();
         gunConRef = tankRef.GetComponentInChildren<GunController>();
         LvlUIRef = Resources.Load<GameObject>("ShopUI");
         PlayerSetup();
-
     }
 
-    void PlayerSetup()
+    // Player Setup
+    public void PlayerSetup()
     {
         MaxHP = tankConRef.hp;
         hp = MaxHP;
@@ -58,7 +61,8 @@ public class PlayerManager : MonoBehaviour
         expReq = 100;
     }
 
-    public void playerhit(float dmg)
+    // Player Hit By Enemy
+    public void PlayerHit(float dmg)
     {
         // Take Damage
         hp -= dmg;
@@ -67,21 +71,19 @@ public class PlayerManager : MonoBehaviour
         if (hp <= 0) StartCoroutine(tankRef.GetComponent<TankController>().Die(2f));
     }
 
-    public void playerkill()
+    // Player Killed Enemy
+    public void PlayerKill()
     {
         // Add to killscore
         kills++;
     }
 
+    // Gain EXP 
     public void GainEXP(int expEarned)
     {
         exp += expEarned;
-        CheckLevelUp();
-    }
 
-    void CheckLevelUp()
-    {
-        if(exp >= expReq)
+        if (exp >= expReq)
         {
             lvl++;
             Instantiate(LvlUIRef);
@@ -89,6 +91,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    // Upgrades Enum
     public enum Upgrades
     {
         Vehicle_Speed,
@@ -102,8 +105,7 @@ public class PlayerManager : MonoBehaviour
         Acceleration
     }
 
-
-
+    // Upgrade!!
     public void Upgrade(int i)
     {
         switch(i)
