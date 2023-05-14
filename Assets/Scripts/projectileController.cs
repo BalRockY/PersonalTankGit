@@ -55,7 +55,6 @@ public class projectileController : MonoBehaviour
     private void Update()
     {
         rb2d.velocity = transform.up * speed;
-        //rb2d.AddForce(transform.position * projectileForce, ForceMode2D.Impulse);
     }
 
     IEnumerator DestroyAfterTime()
