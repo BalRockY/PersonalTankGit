@@ -21,6 +21,7 @@ public class AgentMovement : MonoBehaviour
     private Transform tank;
     private AudioSource aSource;
     private AudioClip[] bulletHitFleshSounds;
+    private GameObject animatorGO;
 
     private bool killZombieHasRun = false;
 
@@ -61,10 +62,12 @@ public class AgentMovement : MonoBehaviour
         agentObject = this.gameObject;
         collider2D = agentObject.GetComponent<BoxCollider2D>();
         splatAnimGO = Resources.Load<GameObject>("SplatAnimation");
-        sprite = this.gameObject.transform.GetChild(1).GetComponent<SpriteRenderer>();
+        //sprite = this.gameObject.transform.GetChild(1).GetComponent<SpriteRenderer>();
         tank = player.transform;
         aSource = this.gameObject.GetComponent<AudioSource>();
         bulletHitFleshSounds = AudioManager.Instance.bulletHitFleshClips;
+        animatorGO = this.gameObject.transform.GetChild(1).gameObject;
+        
 }
     void Start()
     {
@@ -91,12 +94,12 @@ public class AgentMovement : MonoBehaviour
 
         if (tankDistance < gameManager.Instance.renderDistance && killZombieHasRun == false)
         {
-            sprite.enabled = true;
+            //sprite.enabled = true;
 
         }
         else
         {
-            sprite.enabled = false;
+            //sprite.enabled = false;
         }
     }
 
@@ -179,7 +182,11 @@ public class AgentMovement : MonoBehaviour
         killZombieHasRun = true;
         attckDmg = 0;
         collider2D.isTrigger = true; //these are so that the the bullet hit sound get time to play before gameobject is destroyed, but enemy is still technically dead.
-        sprite.enabled = false;
+        //sprite.enabled = false;
+        animatorGO.SetActive(false);
+
+
+
         PlayerManager.Instance.playerkill();
         PlayerManager.Instance.GainEXP(exp);
         Instantiate(splatAnimGO, this.transform.position, Quaternion.identity);

@@ -21,7 +21,7 @@ public class GunController : MonoBehaviour
     private Transform gunfire3;
     private Transform gunfire4;
 
-    public float interval;
+    public float intervalMuzzleFlare;
 
     private int shotSpriteCount = 0;
 
@@ -100,7 +100,7 @@ public class GunController : MonoBehaviour
 
             audioSource.Play();            
 
-            StartCoroutine(ShowGunshotSprite(interval));
+            StartCoroutine(ShowGunshotSprite(intervalMuzzleFlare));
             Instantiate(projectile, firepointL.position, transform.rotation);
             Instantiate(projectile, firepointR.position, transform.rotation);
 

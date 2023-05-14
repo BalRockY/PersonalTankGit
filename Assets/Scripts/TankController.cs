@@ -67,17 +67,7 @@ public class TankController : MonoBehaviour
     private void Start()
     {
         ps.Stop();
-        SetStats();
     }
-
-    private void SetStats()
-    {
-        maxSpeed = 5;
-        turnFactor = 4;
-        accelerationFactor = 10;
-        
-    }
-
     public IEnumerator Die(float dietime)
     {
         aSource.PlayOneShot(deathExplosion);
@@ -207,11 +197,11 @@ public class TankController : MonoBehaviour
         if (velocityVsUp > maxSpeed && accelerationInput > 0)
             return;
 
-        if (velocityVsUp < -maxSpeed * reverseMaxSpeedFactor && accelerationInput < 0)
+        /*if (velocityVsUp < -maxSpeed * reverseMaxSpeedFactor && accelerationInput < 0)
             return;
 
         if (tankRB2D.velocity.sqrMagnitude > maxSpeed * maxSpeed && accelerationInput > 0)
-            return;
+            return;*/
 
         if (accelerationInput == 0)
             tankRB2D.drag = Mathf.Lerp(tankRB2D.drag, decelerationDrag, Time.fixedDeltaTime * 3);

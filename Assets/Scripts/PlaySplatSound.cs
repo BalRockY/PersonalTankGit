@@ -40,13 +40,13 @@ public class PlaySplatSound : MonoBehaviour
 
         if (tankDistance < gameManager.Instance.renderDistance)
         {
-            sprRendAnim.enabled = true;
-            sprRendBloodPool.enabled = true;
+            //sprRendAnim.enabled = false;
+            //sprRendBloodPool.enabled = false;
         }
         else
         {
-            sprRendAnim.enabled = false;
-            sprRendBloodPool.enabled = false;
+            //sprRendAnim.enabled = false;
+            //sprRendBloodPool.enabled = false;
         }
     }
 }
