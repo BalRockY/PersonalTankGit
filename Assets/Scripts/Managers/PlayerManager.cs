@@ -131,7 +131,7 @@ public class PlayerManager : MonoBehaviour
                 gunConRef.speed += 0.2f;
                 break;
 
-            // ShotCount
+            // ShotCout
             case 4:
                 gunConRef.shotVolleyCount += 1;
                 break;
