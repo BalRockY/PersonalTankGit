@@ -143,9 +143,9 @@ else if (hp <= 0 && killZombieHasRun == false)
     }
     void KillZombie()
     {
-        //AUDIO MANAGER IS PLAYING THE SOUND 
-        AudioManager.Instance.aSourceAM.volume = 0.04f;
-        AudioManager.Instance.aSourceAM.PlayOneShot(AudioManager.Instance.splatSound);
+        //Splatsound
+        aSource.volume = 0.1f;
+        aSource.PlayOneShot(AudioManager.Instance.splatSound);
 
         killZombieHasRun = true;
         attckDmg = 0;
@@ -155,7 +155,7 @@ else if (hp <= 0 && killZombieHasRun == false)
         PlayerManager.Instance.GainEXP(exp);
         Instantiate(splatAnimGO, this.transform.position, Quaternion.identity);
         RoundManager.Instance.MoneySpawn(this.transform.position);
-        Destroy(this.gameObject, AudioManager.Instance.bulletHitFleshClips[0].length); // Wait for longest bullethitflesh clip, which is bulletHitFlesh1
+        Destroy(this.gameObject, AudioManager.Instance.splatSound.length); // Wait for longest bullethitflesh clip, which is bulletHitFlesh1
     }
 
     // Collision Triggers
