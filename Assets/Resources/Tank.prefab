@@ -1046,9 +1046,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunShot: {fileID: 8300000, guid: c83eaefae84f970409ac3308cbeab530, type: 3}
   speed: 1.2
-  interval: 0.08
+  intervalMuzzleFlare: 0.08
   shotVolleyCount: 1
-  volleyFiringSpeed: 1
+  volleyFiringSpeed: 0.7
   reloadSpeed: 0.5
   projectile: {fileID: 1306170635801291497, guid: 03751670520ad2a42be8f787e35059db, type: 3}
   firepointL: {fileID: 8051467624317008369}
@@ -1226,7 +1226,7 @@ MonoBehaviour:
   accelerationFactor: 10
   turnFactor: 3
   decelerationDrag: 7
-  maxSpeed: 5
+  maxSpeed: 3
   reverseMaxSpeedFactor: 1
   glimpseTime: 1
   zombieHitBoost: 2
