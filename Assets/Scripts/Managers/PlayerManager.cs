@@ -20,6 +20,7 @@ public class PlayerManager : MonoBehaviour
     // Round Stats
     public float hp;
     public float MaxHP;
+    public float MaxSpeed;
     public float dmg;
     public float cash;
     public int kills;
@@ -42,7 +43,7 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tankRef = RoundManager.Instance.theTank;
+        tankRef = GameObject.FindGameObjectWithTag("Tank");
         tankConRef = tankRef.GetComponent<TankController>();
         gunConRef = tankRef.GetComponentInChildren<GunController>();
         LvlUIRef = Resources.Load<GameObject>("ShopUI");
@@ -59,6 +60,7 @@ public class PlayerManager : MonoBehaviour
         lvl = 0;
         exp = 0;
         expReq = 100;
+        MaxSpeed = tankConRef.maxSpeed;
     }
 
     // Player Hit By Enemy
@@ -87,7 +89,7 @@ public class PlayerManager : MonoBehaviour
         {
             lvl++;
             Instantiate(LvlUIRef);
-            expReq *= 3;
+            expReq += lvl*100;
         }
     }
 
@@ -96,9 +98,8 @@ public class PlayerManager : MonoBehaviour
     {
         Vehicle_Speed,
         Vehicle_Manuvering,
-        Weapon_Speed,
+        Weapon_FiringSpeed,
         Weapon_TurnSpeed,
-        ShotCount,
         MaxHP,
         OneTimeHP,
         Damage,
@@ -128,31 +129,26 @@ public class PlayerManager : MonoBehaviour
 
             // Weapon Turn Speed
             case 3:
-                gunConRef.speed += 0.2f;
-                break;
-
-            // ShotCout
-            case 4:
-                gunConRef.shotVolleyCount += 1;
+                gunConRef.turretRotationSpeed += 0.2f;
                 break;
 
             // MaxHP
-            case 5:
+            case 4:
                 MaxHP += 10;
                 break;
 
             // One Time HP
-            case 6:
+            case 5:
                 hp = MaxHP;
                 break;
 
             // Damage
-            case 7:
-                tankConRef.dmg += (tankConRef.dmg/2);
+            case 6:
+                tankConRef.dmg += 5;
                 break;
 
             // Acceleration
-            case 8:
+            case 7:
                 tankConRef.accelerationFactor += 2f;
                 break;
         }

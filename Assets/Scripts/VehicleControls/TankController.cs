@@ -72,8 +72,8 @@ public class TankController : MonoBehaviour
 
     private void SetStats()
     {
-        maxSpeed = 5;
-        turnFactor = 4;
+        maxSpeed = 3;
+        turnFactor = 2;
         accelerationFactor = 10;
         
     }

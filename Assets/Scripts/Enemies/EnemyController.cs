@@ -94,7 +94,10 @@ public class EnemyController : MonoBehaviour
         SetAgentPosition();
         SetAgentSpeed();
         TakeDamgeWhileStunned();
-
+        if (hp <= 0 && killZombieHasRun == false)
+        {
+            KillZombie();
+        }
 
         // Render/Unrender Sprite based on distance to player
         var tankDistance = Mathf.Sqrt(Mathf.Pow(tank.transform.position.x - transform.position.x, 2) + Mathf.Pow(tank.transform.position.y - transform.position.y, 2));
@@ -124,10 +127,7 @@ public class EnemyController : MonoBehaviour
         aSource.volume = 0.3f;
         aSource.PlayOneShot(bulletHitFleshSounds[randomnumber]);
         Debug.Log("aclip played: " + bulletHitFleshSounds[randomnumber].name);
-        if (hp <= 0 && killZombieHasRun == false)
-        {
-            KillZombie();
-        }
+        
 
         /*if(isStunned == true && hp <= 0 && killZombieHasRun == false) // this was to play splat sound only when run over, but it feels weird not having it when killed normally
 {                                                               // so until better death sounds are found for other death scenarios, this code is disabled.
@@ -155,7 +155,7 @@ else if (hp <= 0 && killZombieHasRun == false)
         PlayerManager.Instance.GainEXP(exp);
         Instantiate(splatAnimGO, this.transform.position, Quaternion.identity);
         RoundManager.Instance.MoneySpawn(this.transform.position);
-        Destroy(this, AudioManager.Instance.bulletHitFleshClips[0].length); // Wait for longest bullethitflesh clip, which is bulletHitFlesh1
+        Destroy(this.gameObject, AudioManager.Instance.bulletHitFleshClips[0].length); // Wait for longest bullethitflesh clip, which is bulletHitFlesh1
     }
 
     // Collision Triggers

@@ -140,7 +140,6 @@ GameObject:
   - component: {fileID: 753288050326310018}
   - component: {fileID: 6941719553004853432}
   - component: {fileID: 4348466221887691496}
-  - component: {fileID: 1618344960925202244}
   m_Layer: 0
   m_Name: CrowdNorth
   m_TagString: Untagged
@@ -260,18 +259,6 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
---- !u!114 &1618344960925202244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 679625890104593317}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5395fbdfb06b6b842a1246cc2ba19564, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &729351274685705537
 GameObject:
   m_ObjectHideFlags: 0
@@ -1439,16 +1426,16 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.097
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 0.2
+  MaxDistance: 7
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -1483,7 +1470,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1707,16 +1694,16 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.097
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 0.2
+  MaxDistance: 7
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -1751,7 +1738,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1942,16 +1929,16 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.097
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 0.2
+  MaxDistance: 7
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -1986,7 +1973,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -2272,16 +2259,16 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.139
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 0.2
+  MaxDistance: 7
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -2316,7 +2303,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -3326,7 +3313,6 @@ GameObject:
   - component: {fileID: 5447020118648490025}
   - component: {fileID: 4863420852689262922}
   - component: {fileID: 845389415154523695}
-  - component: {fileID: 1935810732340114562}
   m_Layer: 0
   m_Name: CrowdSouth
   m_TagString: Untagged
@@ -3446,18 +3432,6 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
---- !u!114 &1935810732340114562
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5365500544376789741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5395fbdfb06b6b842a1246cc2ba19564, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5407267380823845649
 GameObject:
   m_ObjectHideFlags: 0
@@ -3598,7 +3572,6 @@ GameObject:
   - component: {fileID: 3356033110823261257}
   - component: {fileID: 4258631927025460080}
   - component: {fileID: 1254947820524688796}
-  - component: {fileID: 4102814049582615854}
   m_Layer: 0
   m_Name: CrowdEast
   m_TagString: Untagged
@@ -3718,18 +3691,6 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
---- !u!114 &4102814049582615854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5673890170815472775}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5395fbdfb06b6b842a1246cc2ba19564, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6092700879994207923
 GameObject:
   m_ObjectHideFlags: 0
@@ -4505,7 +4466,6 @@ GameObject:
   - component: {fileID: 8574731074288692428}
   - component: {fileID: 6382451844345981419}
   - component: {fileID: 590355903494622486}
-  - component: {fileID: 4483525777128259821}
   m_Layer: 0
   m_Name: CrowdWest
   m_TagString: Untagged
@@ -4625,18 +4585,6 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
---- !u!114 &4483525777128259821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7293160717575058511}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5395fbdfb06b6b842a1246cc2ba19564, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7465361951678314829
 GameObject:
   m_ObjectHideFlags: 0

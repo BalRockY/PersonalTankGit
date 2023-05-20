@@ -103,6 +103,7 @@ public class RoundManager : MonoBehaviour
                 break;
 
             case GameState.Start:
+                Debug.Log("Starting spawn enumerator");
                 StartCoroutine(StartRound());
                 break;
 
@@ -134,13 +135,16 @@ public class RoundManager : MonoBehaviour
     // Start Round State
     IEnumerator StartRound()
     {
+        // Spawn & Setup Tank
+        Instantiate(theTank);
+        camControl.FindTank();
+
+
         // Spawn & Setup Level
         Instantiate(level);
         SpawnObstacles();
 
-        // Spawn & Setup Tank
-        Instantiate(theTank);
-        camControl.FindTank();
+        
 
         // Build Navigation Mesh
         surface.BuildNavMesh();
@@ -149,8 +153,7 @@ public class RoundManager : MonoBehaviour
 
         // Start Spawn Enemies
         StartCoroutine(ZombieSpawner());
-
-        return null;
+        yield return new WaitForEndOfFrame();
     }
     
     // Spawn Functions

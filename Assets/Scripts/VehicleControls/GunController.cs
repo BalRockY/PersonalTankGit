@@ -10,7 +10,7 @@ public class GunController : MonoBehaviour
     private AudioSource audioSource;
     public AudioClip gunShot;
 
-    public float speed;
+    public float turretRotationSpeed;
     
     //public Transform target;
 
@@ -25,7 +25,7 @@ public class GunController : MonoBehaviour
 
     private int shotSpriteCount = 0;
 
-    public int shotVolleyCount = 5;
+    public int shotVolleyCount = 1;
 
     public float volleyFiringSpeed = 0.2f;
     public float reloadSpeed = 2;
@@ -141,7 +141,7 @@ public class GunController : MonoBehaviour
         Vector3 dir = targetPosition - transform.position;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, speed * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, turretRotationSpeed * Time.deltaTime);
 
 
     }

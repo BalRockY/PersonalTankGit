@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -811,6 +811,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 0
   MaxHP: 0
+  MaxSpeed: 0
   dmg: 0
   cash: 0
   kills: 0
@@ -934,7 +935,6 @@ GameObject:
   - component: {fileID: 1008735903}
   - component: {fileID: 1008735902}
   - component: {fileID: 1008735904}
-  - component: {fileID: 1008735905}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -1074,14 +1074,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!81 &1008735905
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1008735901}
-  m_Enabled: 1
 --- !u!1 &1376726108
 GameObject:
   m_ObjectHideFlags: 0
@@ -1186,12 +1178,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theTank: {fileID: 0}
-  enemySpawnInterval: 0
-  moneySpawnInterval: 0
+  wallSpawn1x1: 40
+  wallSpawn1x2: 30
+  moneySpawnInterval: 1
+  moneySpawnFactor: 3
   spawnScaler: 0.99995
-  moneySpawnFactor: 0
-  wallSpawn1x1: 0
-  wallSpawn1x2: 0
+  enemySpawnInterval: 2
 --- !u!1 &2074273963
 GameObject:
   m_ObjectHideFlags: 0
