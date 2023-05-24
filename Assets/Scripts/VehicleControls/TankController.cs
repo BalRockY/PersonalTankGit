@@ -51,7 +51,13 @@ public class TankController : MonoBehaviour
 
     public Animator animator;
 
-    Rigidbody2D tankRB2D;    
+    Rigidbody2D tankRB2D;
+
+    bool driveKeyHeld = false;
+
+    // Audio Clip References
+    private AudioClip driving;
+    private AudioClip idling;
 
 
     private void Awake()
@@ -68,6 +74,14 @@ public class TankController : MonoBehaviour
     {
         ps.Stop();
         SetStats();
+        aSource.volume = 0.15f;
+
+        //Audio Source setup
+        aSource.loop = true;
+        driving = AudioManager.Instance.driveMotor;
+        idling = AudioManager.Instance.idleMotor;
+        aSource.clip = idling;
+        aSource.Play();
     }
 
     private void SetStats()
@@ -80,6 +94,7 @@ public class TankController : MonoBehaviour
 
     public IEnumerator Die(float dietime)
     {
+        aSource.volume = 1f;
         aSource.PlayOneShot(deathExplosion);
         ps.Play();
             yield return new WaitForSeconds(dietime);
@@ -100,6 +115,7 @@ public class TankController : MonoBehaviour
         //}
 
         PlayAnimation();
+        PlayDriveSounds();
         /*
         if (speed > 0)
         {
@@ -180,7 +196,36 @@ public class TankController : MonoBehaviour
     }
 
     // Movement Functions
+    void PlayDriveSounds()
+    {
+        aSource.pitch = 1 + 0.1f * speed * Random.Range(0.8f, 1.2f);
+        {
+            if (Mathf.Abs(accelerationInput) == 1f)
+            {
+                if (aSource.clip == idling)
+                {
+                    aSource.clip = driving;
+                    aSource.Play();
+                }
 
+            }
+            else
+            {
+                if (aSource.clip == driving)
+                {
+                    aSource.clip = idling;
+                    aSource.Play();
+                }
+
+            }
+        }
+    }
+
+    IEnumerator PlayEngineDriveSound()
+    {
+
+        yield return new WaitForSeconds(AudioManager.Instance.driveMotor.length);
+    }
     IEnumerator SpeedCalculation()
     {
         bool isPlaying = true;
@@ -191,7 +236,7 @@ public class TankController : MonoBehaviour
 
             yield return new WaitForFixedUpdate();
 
-            speed = Mathf.RoundToInt(Vector3.Distance(transform.position, prevPos) / Time.fixedDeltaTime);
+            speed = Mathf.Abs(Vector3.Distance(transform.position, prevPos) / Time.fixedDeltaTime);
         }
     }
     void ApplyEngineForce()

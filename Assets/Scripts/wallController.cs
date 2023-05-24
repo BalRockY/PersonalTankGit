@@ -26,7 +26,7 @@ public class wallController : MonoBehaviour
         if (collision.gameObject.tag == "Projectile")
         {
             int randomnumber = Random.Range(0, 5);
-            aSource.volume = 0.2f;
+            aSource.volume = 0.5f;
             aSource.PlayOneShot(bulletHitWallSounds[randomnumber]);
             //Debug.Log("aclip played: " + bulletHitWallSounds[randomnumber].name);
         }
