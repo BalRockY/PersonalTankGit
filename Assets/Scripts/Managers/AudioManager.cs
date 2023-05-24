@@ -54,8 +54,11 @@ public class AudioManager : MonoBehaviour
         bulletHitFleshClips = Resources.LoadAll<AudioClip>("Sound/BulletHitFlesh");
         zombieHitCarClips = Resources.LoadAll<AudioClip>("Sound/ZombieHitCar");
         moneyPickUpSound = Resources.Load<AudioClip>("Sound/PickUpPling");
+        idleMotor = Resources.Load<AudioClip>("Sound/IdleMotor");
+        driveMotor = Resources.Load<AudioClip>("Sound/DriveMotor");
 
     }
+    //Zombie death
     public AudioClip splatSound;
     public AudioClip wetSplat;
     public AudioClip death1;
@@ -70,8 +73,14 @@ public class AudioManager : MonoBehaviour
     //Pickup Sounds
     public AudioClip moneyPickUpSound;
 
+    //Tank drive sounds
+    public AudioClip idleMotor;
+    public AudioClip driveMotor;
+
     public AudioSource aSourceAM;
     public AudioSource aSourceAM2;
+
+    
 
 
 }
