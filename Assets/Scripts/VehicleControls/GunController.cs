@@ -7,7 +7,8 @@ public class GunController : MonoBehaviour
    
     private Vector3 mousePosWorld;
     private Camera mainCam;
-    private AudioSource audioSource;
+    private AudioSource aSourceShoot;
+    private AudioSource aSourceTurretMove;
     public AudioClip gunShot;
 
     public float turretRotationSpeed;
@@ -40,10 +41,16 @@ public class GunController : MonoBehaviour
     [SerializeField]
     Transform firepointR;
 
-    
+    // Turret a-clips
+    private AudioClip turretStart;
+    private AudioClip turretMid;
+    private AudioClip turretEnd;
 
-    
-        
+
+
+
+
+
 
 
 
@@ -51,7 +58,8 @@ public class GunController : MonoBehaviour
     {
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
-        audioSource = GetComponent<AudioSource>();
+        aSourceShoot = GetComponent<AudioSource>();
+        aSourceTurretMove = this.gameObject.transform.GetChild(3).GetComponent<AudioSource>();
 
         gunfireHolder = GameObject.Find("GunfireHolder");
         gunfire1 = gunfireHolder.gameObject.transform.GetChild(0);
@@ -65,7 +73,11 @@ public class GunController : MonoBehaviour
         gunfireList.Add(gunfire2);
         gunfireList.Add(gunfire3);
         gunfireList.Add(gunfire4);
-        
+
+        turretStart = AudioManager.Instance.turretStart;
+        turretMid = AudioManager.Instance.turretMid;
+        turretEnd = AudioManager.Instance.turretEnd;
+
     }
 
     IEnumerator ShowGunshotSprite(float seconds)
@@ -95,10 +107,10 @@ public class GunController : MonoBehaviour
         for (int i = 0; i < shotVolleyCount; i++)
         {
             
-            audioSource.clip = gunShot;
-            audioSource.pitch = Random.Range(0.95f, 1.05f);
+            aSourceShoot.clip = gunShot;
+            aSourceShoot.pitch = Random.Range(0.95f, 1.05f);
 
-            audioSource.Play();            
+            aSourceShoot.Play();            
 
             StartCoroutine(ShowGunshotSprite(interval));
             Instantiate(projectile, firepointL.position, transform.rotation);
@@ -142,9 +154,28 @@ public class GunController : MonoBehaviour
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, turretRotationSpeed * Time.deltaTime);
-
+        
+        PlayTurretMovementSound();
 
     }
+    private Quaternion oldRot;
 
+    void PlayTurretMovementSound()
+    {
+        if (oldRot != transform.rotation)
+        {
+            aSourceTurretMove.clip = turretStart;
+            aSourceTurretMove.Play();
+
+        }
+            
+        else
+        {
+            aSourceTurretMove.Stop();
+        }
+            
+        oldRot = transform.rotation;
+        
+    }
 
 }

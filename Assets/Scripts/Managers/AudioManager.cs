@@ -56,6 +56,11 @@ public class AudioManager : MonoBehaviour
         moneyPickUpSound = Resources.Load<AudioClip>("Sound/PickUpPling");
         idleMotor = Resources.Load<AudioClip>("Sound/IdleMotor");
         driveMotor = Resources.Load<AudioClip>("Sound/DriveMotor");
+        turretStart = Resources.Load<AudioClip>("Sound/TurretMovement/turret_start");
+        turretMid = Resources.Load<AudioClip>("Sound/TurretMovement/turret_mid");
+        turretEnd = Resources.Load<AudioClip>("Sound/TurretMovement/turret_end");
+        beep = Resources.Load<AudioClip>("Sound/MineBeep");
+        mineExplosion = Resources.Load<AudioClip>("Sound/MineExplosion");
 
     }
     //Zombie death
@@ -76,6 +81,15 @@ public class AudioManager : MonoBehaviour
     //Tank drive sounds
     public AudioClip idleMotor;
     public AudioClip driveMotor;
+
+    //Tank turret sounds
+    public AudioClip turretStart;
+    public AudioClip turretEnd;
+    public AudioClip turretMid;
+
+    //Landmine Sounds
+    public AudioClip beep;
+    public AudioClip mineExplosion;
 
     public AudioSource aSourceAM;
     public AudioSource aSourceAM2;

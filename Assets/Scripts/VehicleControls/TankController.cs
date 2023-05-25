@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TankController : MonoBehaviour
 {
+    private GameObject tank;
+
     [Header("Drive settings")]
     public float driftFactor;
     public float accelerationFactor;
@@ -51,6 +53,8 @@ public class TankController : MonoBehaviour
 
     public Animator animator;
 
+    private GameObject landmine;
+
     Rigidbody2D tankRB2D;
 
     bool driveKeyHeld = false;
@@ -62,12 +66,14 @@ public class TankController : MonoBehaviour
 
     private void Awake()
     {
+        tank = this.gameObject;
         collider = transform.Find("Collision").gameObject.GetComponent<EdgeCollider2D>();
         aSource = this.gameObject.GetComponent<AudioSource>();
         tankRB2D = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
         StartCoroutine(SpeedCalculation());
         ps = GameObject.Find("TankExplosion").GetComponent<ParticleSystem>();
+        landmine = Resources.Load<GameObject>("LandMine");
         
     }
     private void Start()
@@ -116,6 +122,7 @@ public class TankController : MonoBehaviour
 
         PlayAnimation();
         PlayDriveSounds();
+        SpawnLandMine();
         /*
         if (speed > 0)
         {
@@ -152,6 +159,13 @@ public class TankController : MonoBehaviour
         ApplySteering();
         KillOrthogonalVelocity();
         
+    }
+    void SpawnLandMine()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            Instantiate(landmine, new Vector3(tank.transform.position.x, tank.transform.position.y, 0), tank.transform.rotation);
+        }
     }
 
     void PlayAnimation()
