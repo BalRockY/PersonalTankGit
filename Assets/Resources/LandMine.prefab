@@ -119,6 +119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   landmineAnimator: {fileID: 0}
+  mineKillDistance: 2
 --- !u!82 &1043292327569170353
 AudioSource:
   m_ObjectHideFlags: 0

@@ -11,6 +11,12 @@ public class LandMineController : MonoBehaviour
     private AnimatorClipInfo[] currentAnimationClip;
     private float currentAnimationClipLength;
     private AudioClip mineExplosion;
+    private SpriteRenderer sprite;
+    private CircleCollider2D collider;
+    private EnemyController enemyController;
+
+    [SerializeField]
+    private float mineKillDistance;
 
     private void Awake()
     {
@@ -19,6 +25,9 @@ public class LandMineController : MonoBehaviour
         beepSound = AudioManager.Instance.beep;
         landmineAnimator = this.gameObject.GetComponent<Animator>();
         mineExplosion = AudioManager.Instance.mineExplosion;
+        sprite = this.gameObject.GetComponent<SpriteRenderer>();
+        collider = this.gameObject.GetComponent<CircleCollider2D>();
+        
     }
 
     private void Start()
@@ -39,6 +48,7 @@ public class LandMineController : MonoBehaviour
     {
         currentAnimationClip = this.landmineAnimator.GetCurrentAnimatorClipInfo(0);
         currentAnimationClipLength = currentAnimationClip[0].clip.length;
+        sprite.sortingOrder = 3;
 
         //First wait for previous animation to finish
         yield return new WaitForSeconds(currentAnimationClipLength);
@@ -54,13 +64,22 @@ public class LandMineController : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy"))
         {
+            collider.enabled = false;
             landmineAnimator.SetTrigger("ZombieTrigger");
-            Destroy(collision.gameObject);
+            GameObject[] enemiesNearPointZero = GameObject.FindGameObjectsWithTag("Enemy");
+            
+            foreach(GameObject enemy in enemiesNearPointZero)
+            {
+                float distanceToExplosion = Vector3.Distance(this.transform.position, enemy.transform.position);
+                if(distanceToExplosion < mineKillDistance)
+                {
+                    enemy.gameObject.GetComponent<EnemyController>().hp -= 100;
+                }
+            }
             aSource2.PlayOneShot(mineExplosion);
             StartCoroutine(DestroyLandMine());
-            
         }
     }
 }

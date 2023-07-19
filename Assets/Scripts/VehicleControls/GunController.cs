@@ -11,7 +11,7 @@ public class GunController : MonoBehaviour
     private AudioSource aSourceTurretMove;
     public AudioClip gunShot;
 
-    public float turretRotationSpeed;
+    public float turretRotationSpeedFactor;
     
     //public Transform target;
 
@@ -45,6 +45,14 @@ public class GunController : MonoBehaviour
     private AudioClip turretStart;
     private AudioClip turretMid;
     private AudioClip turretEnd;
+    private AudioClip alternativeTurretMovement;
+
+    //For calculating turret rotation
+    private float previousRotation;
+    //For calculating turret speed
+    private float previousTime;
+
+    private float m_rotationSpeed;
 
 
 
@@ -77,7 +85,14 @@ public class GunController : MonoBehaviour
         turretStart = AudioManager.Instance.turretStart;
         turretMid = AudioManager.Instance.turretMid;
         turretEnd = AudioManager.Instance.turretEnd;
+        alternativeTurretMovement = AudioManager.Instance.turretRotation;
 
+        aSourceTurretMove.clip = alternativeTurretMovement;
+
+
+        // Store the initial rotation value and time
+        previousRotation = transform.rotation.eulerAngles.z;
+        previousTime = Time.time;
     }
 
     IEnumerator ShowGunshotSprite(float seconds)
@@ -153,29 +168,78 @@ public class GunController : MonoBehaviour
         Vector3 dir = targetPosition - transform.position;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, turretRotationSpeed * Time.deltaTime);
-        
-        PlayTurretMovementSound();
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, turretRotationSpeedFactor * Time.deltaTime);
+
+        //PlayTurretMovementSound();
 
     }
-    private Quaternion oldRot;
+    
+
 
     void PlayTurretMovementSound()
-    {
-        if (oldRot != transform.rotation)
         {
-            aSourceTurretMove.clip = turretStart;
-            aSourceTurretMove.Play();
+        // Get the current rotation value and time
+        float currentRotation = transform.rotation.eulerAngles.z;
+        float currentTime = Time.time;
 
+        // Calculate the difference in rotation and time
+        float rotationDifference = Mathf.DeltaAngle(previousRotation, currentRotation) * Mathf.Deg2Rad;
+        float timeDifference = currentTime - previousTime;
+
+        // Calculate the rotation speed
+        float rotationSpeed = rotationDifference / timeDifference;
+        m_rotationSpeed = Mathf.Abs(rotationSpeed);
+
+        // Determine the rotation direction
+        //RotationDirection direction = GetRotationDirection(rotationDifference);
+
+        // Store the current rotation and time as the previous values for the next frame
+        previousRotation = currentRotation;
+        previousTime = currentTime;
+        aSourceTurretMove.pitch = 0.8f + 0.03f * m_rotationSpeed;
+
+        if (m_rotationSpeed >= 0.5f)
+        {
+            if(turretStartBool == false)
+            {
+                aSourceTurretMove.clip = turretStart;
+                //aSourceTurretMove.pitch = 1f;
+                aSourceTurretMove.Play();
+                turretStartBool = true;
+                turretEndBool = false;
+                turretMidBool = false;
+            }
+            else if (turretMidBool == false && aSourceTurretMove.time == turretStart.length)
+            {
+                aSourceTurretMove.clip = turretMid;
+                //aSourceTurretMove.pitch = 0.96f;
+                aSourceTurretMove.Play();
+            }
+            else if(aSourceTurretMove.time == turretMid.length)
+            {
+                aSourceTurretMove.clip = turretMid;
+                //aSourceTurretMove.pitch = 0.96f;
+                aSourceTurretMove.Play();
+            }
         }
-            
         else
         {
-            aSourceTurretMove.Stop();
+            if(turretEndBool == false)
+            {
+                aSourceTurretMove.clip = turretEnd;
+                //aSourceTurretMove.pitch = 1f;
+                aSourceTurretMove.Play();
+                turretEndBool = true;
+                turretStartBool = false;
+                turretMidBool = false;
+            }
         }
-            
-        oldRot = transform.rotation;
-        
+
     }
+
+
+    public bool turretStartBool = false;
+    public bool turretEndBool = false;
+    public bool turretMidBool = false;
 
 }

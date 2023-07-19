@@ -22,8 +22,6 @@ public class TankController : MonoBehaviour
     float velocityVsUp = 0;
     [SerializeField]
     float glimpseTime = 0.2f;
-    [SerializeField]
-    float zombieHitBoost;
 
     public float speed;
     private bool keepMoving = false;
@@ -213,26 +211,26 @@ public class TankController : MonoBehaviour
     void PlayDriveSounds()
     {
         aSource.pitch = 1 + 0.1f * speed * Random.Range(0.8f, 1.2f);
+        
+        if (Mathf.Abs(accelerationInput) == 1f)
         {
-            if (Mathf.Abs(accelerationInput) == 1f)
+            if (aSource.clip == idling)
             {
-                if (aSource.clip == idling)
-                {
-                    aSource.clip = driving;
-                    aSource.Play();
-                }
-
+                aSource.clip = driving;
+                aSource.Play();
             }
-            else
-            {
-                if (aSource.clip == driving)
-                {
-                    aSource.clip = idling;
-                    aSource.Play();
-                }
 
-            }
         }
+        else
+        {
+            if (aSource.clip == driving)
+            {
+                aSource.clip = idling;
+                aSource.Play();
+            }
+
+        }
+        
     }
 
     IEnumerator PlayEngineDriveSound()

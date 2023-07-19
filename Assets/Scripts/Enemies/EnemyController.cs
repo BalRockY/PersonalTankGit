@@ -36,7 +36,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private float attckDmg;
     [SerializeField]
-    private float hp;
+    public float hp;
     [SerializeField]
     float agentSpeed = 1.5f;
     [SerializeField]

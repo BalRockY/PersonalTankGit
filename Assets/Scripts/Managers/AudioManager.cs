@@ -58,6 +58,7 @@ public class AudioManager : MonoBehaviour
         driveMotor = Resources.Load<AudioClip>("Sound/DriveMotor");
         turretStart = Resources.Load<AudioClip>("Sound/TurretMovement/turret_start");
         turretMid = Resources.Load<AudioClip>("Sound/TurretMovement/turret_mid");
+        turretRotation = Resources.Load<AudioClip>("Sound/TurretRotate");
         turretEnd = Resources.Load<AudioClip>("Sound/TurretMovement/turret_end");
         beep = Resources.Load<AudioClip>("Sound/MineBeep");
         mineExplosion = Resources.Load<AudioClip>("Sound/MineExplosion");
@@ -86,6 +87,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip turretStart;
     public AudioClip turretEnd;
     public AudioClip turretMid;
+    //Alternative sound
+    public AudioClip turretRotation;
 
     //Landmine Sounds
     public AudioClip beep;

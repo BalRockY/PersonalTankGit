@@ -333,7 +333,7 @@ AudioSource:
   m_GameObject: {fileID: 4697591740105742104}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -2055604045290540801, guid: a32cebb66ed71384992ec444ec16a592, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -345,7 +345,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 10
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -380,7 +380,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1173,7 +1173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunShot: {fileID: 8300000, guid: c83eaefae84f970409ac3308cbeab530, type: 3}
-  turretRotationSpeed: 1.5
+  turretRotationSpeedFactor: 1.5
   interval: 0.08
   shotVolleyCount: 1
   volleyFiringSpeed: 1
@@ -1181,6 +1181,13 @@ MonoBehaviour:
   projectile: {fileID: 1306170635801291497, guid: 03751670520ad2a42be8f787e35059db, type: 3}
   firepointL: {fileID: 8051467624317008369}
   firepointR: {fileID: 8051467623558756566}
+  turretStartBool: 0
+  turretEndBool: 0
+  turretMidBool: 0
+  rotation: 0
+  rightRotation: 0
+  noRotation: 1
+  turretHalting: 0
 --- !u!82 &8051467623960027971
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1357,7 +1364,6 @@ MonoBehaviour:
   maxSpeed: 3
   reverseMaxSpeedFactor: 1
   glimpseTime: 1
-  zombieHitBoost: 2
   speed: 0
   aSource: {fileID: 0}
   deathExplosion: {fileID: 8300000, guid: 55dbfe712244a8f4095e1c679168d755, type: 3}
@@ -1370,7 +1376,7 @@ MonoBehaviour:
   currentPos: {x: 0, y: 0}
   hp: 200
   dmg: 10
-  speedAsDmgMultiplier: 4
+  speedAsDmgMultiplier: 3
   animator: {fileID: 0}
 --- !u!114 &8051467624115152049
 MonoBehaviour:

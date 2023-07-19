@@ -129,7 +129,7 @@ public class PlayerManager : MonoBehaviour
 
             // Weapon Turn Speed
             case 3:
-                gunConRef.turretRotationSpeed += 0.2f;
+                gunConRef.turretRotationSpeedFactor += 0.2f;
                 break;
 
             // MaxHP
