@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -966,7 +966,9 @@ MonoBehaviour:
   turretStart: {fileID: 0}
   turretEnd: {fileID: 0}
   turretMid: {fileID: 0}
+  turretRotation: {fileID: 0}
   beep: {fileID: 0}
+  mineExplosion: {fileID: 0}
   aSourceAM: {fileID: 0}
   aSourceAM2: {fileID: 0}
 --- !u!4 &1008735903
@@ -1189,7 +1191,10 @@ MonoBehaviour:
   moneySpawnInterval: 1
   moneySpawnFactor: 3
   spawnScaler: 0.99995
-  enemySpawnInterval: 2
+  enemySpawnInterval: 4
+  enemyClusterCount: 10
+  maxEnemyCount: 50
+  currentEnemyCount: 0
 --- !u!1 &2074273963
 GameObject:
   m_ObjectHideFlags: 0

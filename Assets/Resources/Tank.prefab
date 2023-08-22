@@ -1176,7 +1176,7 @@ MonoBehaviour:
   turretRotationSpeedFactor: 1.5
   interval: 0.08
   shotVolleyCount: 1
-  volleyFiringSpeed: 1
+  volleyFiringSpeed: 0.3
   reloadSpeed: 0.5
   projectile: {fileID: 1306170635801291497, guid: 03751670520ad2a42be8f787e35059db, type: 3}
   firepointL: {fileID: 8051467624317008369}
@@ -1184,10 +1184,6 @@ MonoBehaviour:
   turretStartBool: 0
   turretEndBool: 0
   turretMidBool: 0
-  rotation: 0
-  rightRotation: 0
-  noRotation: 1
-  turretHalting: 0
 --- !u!82 &8051467623960027971
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1666,7 +1662,7 @@ Transform:
   m_GameObject: {fileID: 8051467624952009563}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.02, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 11}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children: []
   m_Father: {fileID: 8051467624115152054}
   m_RootOrder: 0

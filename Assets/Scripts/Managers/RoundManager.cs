@@ -35,6 +35,8 @@ public class RoundManager : MonoBehaviour
     private int wallSpawn1x1;
     [SerializeField]
     private int wallSpawn1x2;
+    private GameObject gateLeft;
+    private GameObject gateRight;
 
     // Pick Up Variables
     private GameObject[] pickUpsInstantiated;
@@ -48,12 +50,16 @@ public class RoundManager : MonoBehaviour
     // Enemy Variables
     private GameObject[] zombiesInstantiated;
     private GameObject enemy;
+    
 
     [SerializeField]
     private float spawnScaler = 0.99995f;
     private float enemySpawnIntervalLoader;
     [SerializeField]
     private float enemySpawnInterval;
+    public int enemyClusterCount;
+    public int maxEnemyCount;
+    public int currentEnemyCount;
 
     // VFX Variables
     private GameObject[] splatAnimsInstantiated;
@@ -91,6 +97,7 @@ public class RoundManager : MonoBehaviour
     {
         // Set Spawn Interval
         enemySpawnInterval = enemySpawnInterval * spawnScaler;
+        GatesOpen();
     }
 
     // State Handlers
@@ -126,6 +133,9 @@ public class RoundManager : MonoBehaviour
                 enemySpawnInterval = enemySpawnIntervalLoader;
                 StartCoroutine(StartRound());
                 break;
+            case GameState.RoundWon:
+                
+                break;
 
             default:
                 break;
@@ -142,6 +152,8 @@ public class RoundManager : MonoBehaviour
 
         // Spawn & Setup Level
         Instantiate(level);
+        gateLeft = GameObject.Find("GateLeft");
+        gateRight = GameObject.Find("GateRight");
         SpawnObstacles();
 
         
@@ -173,7 +185,7 @@ public class RoundManager : MonoBehaviour
             Collider2D hit = Physics2D.OverlapBox(position, new Vector2(1, 2), 0f);
             Gizmos.DrawCube(new Vector3(hit.transform.position.x, hit.transform.position.y, 0f), new Vector3(1f,2f,0f));*/
 
-            if (position != GameObject.FindGameObjectWithTag("Tank").transform.position)
+            if (position != GameObject.FindGameObjectWithTag("Tank").transform.position) // Virker ikke, da tankens transform.position er et lille punkt, midt i tanken. Walls kan stadig spawne oven i tanken.
             {
                 Instantiate(wall_1x2, position, Quaternion.identity);
             }
@@ -212,18 +224,33 @@ public class RoundManager : MonoBehaviour
     public IEnumerator ZombieSpawner()
     {
         tankController = GameObject.FindGameObjectWithTag("Tank").GetComponent<TankController>();
-        while (tankController.dead == false)
+        while (currentEnemyCount < maxEnemyCount)
         {
             if (tankController == null)
             {
                 break;
             }
             Vector3 enemySpawnLoc = new Vector3(Random.Range(-48, 48), Random.Range(-48, 48), 0);
-            /*if(enemySpawnLoc != GameObject.FindGameObjectWithTag("Wall").transform.position && enemySpawnLoc != GameObject.FindGameObjectWithTag("Tank").transform.position)
-            {*/
+            
+            for (int i = 0; i < enemyClusterCount; i++)
+            {
                 Instantiate(enemy, enemySpawnLoc, Quaternion.identity);
-            //}
+                currentEnemyCount++;
+                Debug.Log(currentEnemyCount);
+            }
+
             yield return new WaitForSeconds(enemySpawnInterval);
+        }
+    }
+    
+    void GatesOpen()
+    {
+        zombiesInstantiated = GameObject.FindGameObjectsWithTag("Enemy");
+        int zombieCount = zombiesInstantiated.Length;
+        if (currentEnemyCount >= maxEnemyCount && zombieCount == 0)
+        {
+            gateLeft.transform.position = new Vector3(-8f, gateLeft.transform.position.y, 0);
+            gateRight.transform.position = new Vector3(8f, gateRight.transform.position.y, 0);
         }
     }
 

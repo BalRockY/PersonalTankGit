@@ -164,6 +164,7 @@ else if (hp <= 0 && killZombieHasRun == false)
         Debug.Log("agent hit: " + collision.gameObject);
         if (collision.gameObject.tag == "Tank")
         {
+            Debug.Log("enemy hit");
             var chassisHitDmg = tankScript.speed * tankScript.speedAsDmgMultiplier;
             Debug.Log(chassisHitDmg);
             hp -= chassisHitDmg;

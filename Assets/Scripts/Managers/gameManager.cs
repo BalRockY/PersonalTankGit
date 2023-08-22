@@ -79,6 +79,9 @@ public class GameManager : MonoBehaviour
             case GameState.RestartGame:
                 HandleRestartGame();
                 break;
+            case GameState.RoundWon:
+                HandleRoundWon();
+                break;
 
             default:
                 break;
@@ -88,7 +91,9 @@ public class GameManager : MonoBehaviour
     }
     void HandleStartGame()
     {
+
     }
+
     void HandleMainMenu()
     {
 
@@ -109,6 +114,10 @@ public class GameManager : MonoBehaviour
     {
 
     }
+    void HandleRoundWon()
+    {
+
+    }
 }
 
 // Gamestates Enum
@@ -119,5 +128,6 @@ public enum GameState
     Playing,
     Paused,
     GameOver,
-    RestartGame
+    RestartGame,
+    RoundWon
 }
