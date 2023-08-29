@@ -74,7 +74,7 @@ public class EnemyController : MonoBehaviour
         collider2D = this.GetComponent<BoxCollider2D>();
 
         // Setup Sprite References        
-        splatAnimGO = Resources.Load<GameObject>("SplatAnimation");
+        splatAnimGO = Resources.Load<GameObject>("VFX/SplatAnimation");
         sprite = this.gameObject.transform.GetChild(1).GetComponent<SpriteRenderer>();
         
         // Setup Aduio References

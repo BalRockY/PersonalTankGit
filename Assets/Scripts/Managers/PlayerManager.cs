@@ -46,7 +46,7 @@ public class PlayerManager : MonoBehaviour
         tankRef = GameObject.FindGameObjectWithTag("Tank");
         tankConRef = tankRef.GetComponent<TankController>();
         gunConRef = tankRef.GetComponentInChildren<GunController>();
-        LvlUIRef = Resources.Load<GameObject>("ShopUI");
+        LvlUIRef = Resources.Load<GameObject>("UI/ShopUI");
         PlayerSetup();
     }
 
