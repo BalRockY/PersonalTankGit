@@ -338,6 +338,11 @@ public class TankController : MonoBehaviour
             AudioManager.Instance.aSourceAM2.PlayOneShot(AudioManager.Instance.moneyPickUpSound);
             
         }
+        if(collision.gameObject == RoundManager.Instance.caravanImage)
+        {
+            
+            GameManager.Instance.UpdateGameState(GameState.RoundWon);
+        }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {

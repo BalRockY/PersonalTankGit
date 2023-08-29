@@ -26,6 +26,7 @@ public class RoundManager : MonoBehaviour
     private GameObject level;
     private GameObject levelInstantiated;
     private NavMeshSurface surface;
+    public GameObject caravanImage;
 
     // Obstacle Variables
     private GameObject wall_1x2;
@@ -77,6 +78,7 @@ public class RoundManager : MonoBehaviour
         wall_1x2 = Resources.Load<GameObject>("Wall1x2");
         wall_1x1 = Resources.Load<GameObject>("Wall1x1");
         moneyPickup = Resources.Load<GameObject>("MoneyPickUp");
+        
 
         // Find NavMesh
         surface = GameObject.Find("NavMesh").GetComponent<NavMeshSurface>();
@@ -134,7 +136,7 @@ public class RoundManager : MonoBehaviour
                 StartCoroutine(StartRound());
                 break;
             case GameState.RoundWon:
-                
+                Debug.Log("You won the round!");
                 break;
 
             default:
@@ -145,6 +147,7 @@ public class RoundManager : MonoBehaviour
     // Start Round State
     IEnumerator StartRound()
     {
+        
         // Spawn & Setup Tank
         Instantiate(theTank);
         camControl.FindTank();
@@ -166,6 +169,9 @@ public class RoundManager : MonoBehaviour
         // Start Spawn Enemies
         StartCoroutine(ZombieSpawner());
         yield return new WaitForEndOfFrame();
+
+        // Reference complete level-area
+        caravanImage = GameObject.Find("CaravanPicture");
     }
     
     // Spawn Functions

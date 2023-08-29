@@ -1186,6 +1186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theTank: {fileID: 0}
+  caravanImage: {fileID: 0}
   wallSpawn1x1: 40
   wallSpawn1x2: 30
   moneySpawnInterval: 1
@@ -1193,7 +1194,7 @@ MonoBehaviour:
   spawnScaler: 0.99995
   enemySpawnInterval: 4
   enemyClusterCount: 10
-  maxEnemyCount: 50
+  maxEnemyCount: 10
   currentEnemyCount: 0
 --- !u!1 &2074273963
 GameObject:
