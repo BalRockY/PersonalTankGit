@@ -34,7 +34,7 @@ public class AudioManager : MonoBehaviour
             case GameState.Paused:
                 break;
 
-            case GameState.GameOver:
+            case GameState.RoundOver:
 
                 break;
 

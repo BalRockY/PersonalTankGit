@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            UpdateGameState(GameState.GameOver);
+            UpdateGameState(GameState.RoundOver);
         }
     }
 
@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
                 HandlePauseGame();
                 break;
 
-            case GameState.GameOver:
+            case GameState.RoundOver:
                 HandleGameOver();
                 break;
             case GameState.RestartGame:
@@ -128,7 +128,7 @@ public enum GameState
     Start,
     Playing,
     Paused,
-    GameOver,
+    RoundOver,
     RestartGame,
     RoundWon
 }

@@ -103,7 +103,7 @@ public class TankController : MonoBehaviour
         ps.Play();
             yield return new WaitForSeconds(dietime);
         ps.Stop();
-            GameManager.Instance.UpdateGameState(GameState.GameOver);
+            GameManager.Instance.UpdateGameState(GameState.RoundOver);
             
     }
     private void Update()
@@ -340,8 +340,8 @@ public class TankController : MonoBehaviour
         }
         if(collision.gameObject == RoundManager.Instance.caravanImage)
         {
-            
-            GameManager.Instance.UpdateGameState(GameState.RoundWon);
+
+            RoundManager.Instance.triggerEndRound = true;
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)

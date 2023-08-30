@@ -41,7 +41,6 @@ public class RoundManager : MonoBehaviour
 
     // Pick Up Variables
     private GameObject[] pickUpsInstantiated;
-
     private GameObject moneyPickup;
     [SerializeField]
     private float moneySpawnInterval;
@@ -51,8 +50,13 @@ public class RoundManager : MonoBehaviour
     // Enemy Variables
     private GameObject[] zombiesInstantiated;
     private GameObject enemy;
-    
 
+    // Level triggers
+    private bool roundComplete = false;
+    public bool triggerEndRound = false;
+
+
+    // Enemy spawn variables
     [SerializeField]
     private float spawnScaler = 0.99995f;
     private float enemySpawnIntervalLoader;
@@ -60,7 +64,7 @@ public class RoundManager : MonoBehaviour
     private float enemySpawnInterval;
     public int enemyClusterCount;
     public int maxEnemyCount;
-    public int currentEnemyCount;
+    public int currentEnemiesSpawnedCount;
 
     // VFX Variables
     private GameObject[] splatAnimsInstantiated;
@@ -99,7 +103,20 @@ public class RoundManager : MonoBehaviour
     {
         // Set Spawn Interval
         enemySpawnInterval = enemySpawnInterval * spawnScaler;
-        GatesOpen();
+
+        // Open gates once
+        if(roundComplete == false)
+        {
+            GateOpener();
+        }
+
+        // Win round once
+        if(triggerEndRound == true)
+        {
+            HandleRoundWon();
+            triggerEndRound = false;
+        }
+        
     }
 
     // State Handlers
@@ -122,7 +139,7 @@ public class RoundManager : MonoBehaviour
             case GameState.Paused:
                 break;
 
-            case GameState.GameOver:
+            case GameState.RoundOver:
                 StopCoroutine(ZombieSpawner());
                 KillZombies();
                 KillTank();
@@ -133,10 +150,11 @@ public class RoundManager : MonoBehaviour
                 break;
             case GameState.RestartGame:
                 enemySpawnInterval = enemySpawnIntervalLoader;
+                roundComplete = false;
                 StartCoroutine(StartRound());
                 break;
             case GameState.RoundWon:
-                Debug.Log("You won the round!");
+                HandleRoundWon();
                 break;
 
             default:
@@ -168,12 +186,28 @@ public class RoundManager : MonoBehaviour
 
         // Start Spawn Enemies
         StartCoroutine(ZombieSpawner());
-        yield return new WaitForEndOfFrame();
 
         // Reference complete level-area
         caravanImage = GameObject.Find("CaravanPicture");
+
+
+        yield return new WaitForEndOfFrame();
+
+        
     }
-    
+
+    void HandleRoundWon()
+    {
+        StartCoroutine(ChangeLevel(5));
+    }
+
+    IEnumerator ChangeLevel(float seconds)
+    {
+        GameManager.Instance.UpdateGameState(GameState.RoundOver);
+        yield return new WaitForSeconds(seconds);
+        GameManager.Instance.UpdateGameState(GameState.RestartGame);
+        
+    }
     // Spawn Functions
     void SpawnObstacles()
     {
@@ -229,8 +263,9 @@ public class RoundManager : MonoBehaviour
     }
     public IEnumerator ZombieSpawner()
     {
+        currentEnemiesSpawnedCount = 0;
         tankController = GameObject.FindGameObjectWithTag("Tank").GetComponent<TankController>();
-        while (currentEnemyCount < maxEnemyCount)
+        while (currentEnemiesSpawnedCount < maxEnemyCount)
         {
             if (tankController == null)
             {
@@ -241,23 +276,26 @@ public class RoundManager : MonoBehaviour
             for (int i = 0; i < enemyClusterCount; i++)
             {
                 Instantiate(enemy, enemySpawnLoc, Quaternion.identity);
-                currentEnemyCount++;
-                Debug.Log(currentEnemyCount);
+                currentEnemiesSpawnedCount++;
+                Debug.Log(currentEnemiesSpawnedCount);
             }
 
             yield return new WaitForSeconds(enemySpawnInterval);
         }
     }
     
-    void GatesOpen()
+    void GateOpener()
     {
+        
         zombiesInstantiated = GameObject.FindGameObjectsWithTag("Enemy");
         int zombieCount = zombiesInstantiated.Length;
-        if (currentEnemyCount >= maxEnemyCount && zombieCount == 0)
+        if (currentEnemiesSpawnedCount >= maxEnemyCount && zombieCount == 0)
         {
             gateLeft.transform.position = new Vector3(-8f, gateLeft.transform.position.y, 0);
             gateRight.transform.position = new Vector3(8f, gateRight.transform.position.y, 0);
+            roundComplete = true;
         }
+        
     }
 
 
@@ -304,5 +342,6 @@ public class RoundManager : MonoBehaviour
             Destroy(splatAnimsInstantiated[i]);
         }
     }
-   
+
+    
 }

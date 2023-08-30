@@ -64,7 +64,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     // Player Hit By Enemy
-    public void PlayerHit(float dmg)
+    public void PlayerHit(float dmg) // Function is called in EnemyController
     {
         // Take Damage
         hp -= dmg;

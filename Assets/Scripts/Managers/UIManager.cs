@@ -87,8 +87,8 @@ public class UIManager : MonoBehaviour
             case GameState.Paused:
                 break;
 
-            case GameState.GameOver:
-                EndScreen();
+            case GameState.RoundOver:
+                //EndScreen();
                 break;
 
             case GameState.RestartGame:
