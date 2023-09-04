@@ -1190,11 +1190,17 @@ MonoBehaviour:
   wallSpawn1x2: 30
   moneySpawnInterval: 1
   moneySpawnFactor: 3
+  triggerEndRound: 0
   spawnScaler: 0.99995
   enemySpawnInterval: 4
   enemyClusterCount: 10
+<<<<<<< Updated upstream
   maxEnemyCount: 50
   currentEnemyCount: 0
+=======
+  maxEnemyCount: 30
+  currentEnemiesSpawnedCount: 0
+>>>>>>> Stashed changes
 --- !u!1 &2074273963
 GameObject:
   m_ObjectHideFlags: 0
