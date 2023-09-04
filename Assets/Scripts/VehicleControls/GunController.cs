@@ -32,6 +32,15 @@ public class GunController : MonoBehaviour
     public float reloadSpeed = 2;
     private bool shooting = false;
 
+    // Gun flash lighting
+
+    public GameObject gunflashLeft;
+    public GameObject gunflashBackingLeft;
+    public GameObject gunflashRight;
+    public GameObject gunflashBackingRight;
+
+    public float lightTime;
+
     [SerializeField]
     GameObject projectile;
 
@@ -65,6 +74,12 @@ public class GunController : MonoBehaviour
     private void Start()
     {
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+
+        // gunlight disable from start
+        gunflashLeft.SetActive(false);
+        gunflashBackingLeft.SetActive(false);
+        gunflashRight.SetActive(false);
+        gunflashBackingRight.SetActive(false);
 
         aSourceShoot = GetComponent<AudioSource>();
         aSourceTurretMove = this.gameObject.transform.GetChild(3).GetComponent<AudioSource>();
@@ -121,7 +136,11 @@ public class GunController : MonoBehaviour
 
         for (int i = 0; i < shotVolleyCount; i++)
         {
+
             
+            StartCoroutine(LightTime(lightTime));
+            
+
             aSourceShoot.clip = gunShot;
             aSourceShoot.pitch = Random.Range(0.95f, 1.05f);
 
@@ -134,7 +153,7 @@ public class GunController : MonoBehaviour
             
             yield return new WaitForSeconds(volleyFiringSpeed);
 
-
+            
         }
 
         //yield return new WaitForSeconds(reloadSpeed); //extra interval between volleys
@@ -142,6 +161,18 @@ public class GunController : MonoBehaviour
         Debug.Log("Machinegun fired");
     }
 
+    IEnumerator LightTime(float lt)
+    {
+        gunflashLeft.SetActive(true);
+        gunflashBackingLeft.SetActive(true);
+        gunflashRight.SetActive(true);
+        gunflashBackingRight.SetActive(true);
+        yield return new WaitForSeconds(lt);
+        gunflashLeft.SetActive(false);
+        gunflashBackingLeft.SetActive(false);
+        gunflashRight.SetActive(false);
+        gunflashBackingRight.SetActive(false);
+    }
 
     void ShotCount()
     {
