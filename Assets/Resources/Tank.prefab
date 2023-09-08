@@ -1508,6 +1508,7 @@ MonoBehaviour:
   projectile: {fileID: 1306170635801291497, guid: 03751670520ad2a42be8f787e35059db, type: 3}
   firepointL: {fileID: 8051467624317008369}
   firepointR: {fileID: 8051467623558756566}
+  camControl: {fileID: 2487185250180622010, guid: c636dd50e986f6d49844571e2eddf5eb, type: 3}
   turretStartBool: 0
   turretEndBool: 0
   turretMidBool: 0

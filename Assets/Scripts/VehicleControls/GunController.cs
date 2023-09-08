@@ -70,7 +70,6 @@ public class GunController : MonoBehaviour
 
 
 
-
     private void Start()
     {
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
@@ -139,7 +138,7 @@ public class GunController : MonoBehaviour
 
             
             StartCoroutine(LightTime(lightTime));
-            
+            CameraShake.Shake(0.1f, 0.13f);
 
             aSourceShoot.clip = gunShot;
             aSourceShoot.pitch = Random.Range(0.95f, 1.05f);
