@@ -138,7 +138,7 @@ public class GunController : MonoBehaviour
 
             
             StartCoroutine(LightTime(lightTime));
-            CameraShake.Shake(0.1f, 0.13f);
+            CameraShake.Shake(0.05f, 0.1f);
 
             aSourceShoot.clip = gunShot;
             aSourceShoot.pitch = Random.Range(0.95f, 1.05f);

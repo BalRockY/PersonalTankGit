@@ -155,7 +155,7 @@ else if (hp <= 0 && killZombieHasRun == false)
         PlayerManager.Instance.GainEXP(exp);
         Instantiate(splatAnimGO, this.transform.position, Quaternion.identity);
         RoundManager.Instance.MoneySpawn(this.transform.position);
-        Destroy(this.gameObject, AudioManager.Instance.splatSound.length); // Wait for longest bullethitflesh clip, which is bulletHitFlesh1
+        Destroy(this.gameObject/*, AudioManager.Instance.splatSound.length*/); // Wait for longest bullethitflesh clip, which is bulletHitFlesh1
     }
 
     // Collision Triggers
