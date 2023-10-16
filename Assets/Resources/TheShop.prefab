@@ -68,9 +68,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8149988574464065068}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13dc79f14a2feb04e9406ed206c82750, type: 3}
+  m_Script: {fileID: 11500000, guid: 7a6bd97c5436a5d44b9a6fda40c773e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shopUI: {fileID: 1933535549666269431, guid: 9c9ffd9a898b5574bab6bdd431327c65, type: 3}
+  CurUpgrades: 
+  announceTime: 0
 --- !u!1 &8149988575449578663
 GameObject:
   m_ObjectHideFlags: 0

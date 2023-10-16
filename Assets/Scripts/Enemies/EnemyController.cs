@@ -152,7 +152,7 @@ else if (hp <= 0 && killZombieHasRun == false)
         collider2D.isTrigger = true; //these are so that the the bullet hit sound get time to play before gameobject is destroyed, but enemy is still technically dead.
         sprite.enabled = false;
         PlayerManager.Instance.PlayerKill();
-        PlayerManager.Instance.GainEXP(exp);
+        //PlayerManager.Instance.GainEXP(exp);
         Instantiate(splatAnimGO, this.transform.position, Quaternion.identity);
         RoundManager.Instance.MoneySpawn(this.transform.position);
         Destroy(this.gameObject/*, AudioManager.Instance.splatSound.length*/); // Wait for longest bullethitflesh clip, which is bulletHitFlesh1

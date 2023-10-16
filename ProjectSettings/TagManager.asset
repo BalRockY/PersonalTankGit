@@ -15,6 +15,7 @@ TagManager:
   - Level
   - SplatAnim
   - Collision
+  - Mine
   layers:
   - Default
   - TransparentFX

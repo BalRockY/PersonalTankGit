@@ -32,7 +32,6 @@ public class PlayerManager : MonoBehaviour
     public GameObject tankRef;
     public TankController tankConRef;
     public GunController gunConRef;
-    public GameObject LvlUIRef;
 
     void Awake()
     {
@@ -46,7 +45,6 @@ public class PlayerManager : MonoBehaviour
         tankRef = GameObject.FindGameObjectWithTag("Tank");
         tankConRef = tankRef.GetComponent<TankController>();
         gunConRef = tankRef.GetComponentInChildren<GunController>();
-        LvlUIRef = Resources.Load<GameObject>("UI/ShopUI");
         PlayerSetup();
     }
 
@@ -79,7 +77,7 @@ public class PlayerManager : MonoBehaviour
         // Add to killscore
         kills++;
     }
-
+    /*
     // Gain EXP 
     public void GainEXP(int expEarned)
     {
@@ -92,6 +90,7 @@ public class PlayerManager : MonoBehaviour
             expReq += lvl*100;
         }
     }
+    */
 
     // Upgrades Enum
     public enum Upgrades

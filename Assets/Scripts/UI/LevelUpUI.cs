@@ -13,6 +13,10 @@ public class LevelUpUI : MonoBehaviour
     private Button ExitUIBtn;
     private TMP_Text ExitUIBtnTXT;
 
+    // Shop UI
+    [SerializeField]
+    private GameObject shopUI;
+
     public List<int> CurUpgrades = new List<int>();
 
     [SerializeField]
@@ -61,6 +65,15 @@ public class LevelUpUI : MonoBehaviour
         Time.timeScale = 0f;
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Collision"))
+        {
+            Debug.Log("shop col");
+            Instantiate(shopUI);
+        }
+    }
+
     // Exit Shop
     IEnumerator ExitShop(float bye)
     {
@@ -78,7 +91,6 @@ public class LevelUpUI : MonoBehaviour
     {
         announceText.text = announcement;
         yield return new WaitForSecondsRealtime(wait);
-        Debug.Log("Went here in the code");
         //announceText.text = "";
         /*if (enoughMoney == false)
         {

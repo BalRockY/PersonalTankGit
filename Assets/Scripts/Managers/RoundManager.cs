@@ -21,12 +21,14 @@ public class RoundManager : MonoBehaviour
     public GameObject theTank;
     private TankController tankController;
     private CameraController camControl;
+    private GameObject[] mines;
 
     // Level & Navigation Variables
     private GameObject level;
     private GameObject levelInstantiated;
     private NavMeshSurface surface;
     public GameObject caravanImage;
+    public GameObject theShop;
 
     // Obstacle Variables
     private GameObject wall_1x2;
@@ -49,6 +51,7 @@ public class RoundManager : MonoBehaviour
 
     // Enemy Variables
     private GameObject[] zombiesInstantiated;
+    [SerializeField]
     private GameObject enemy;
 
     // Level triggers
@@ -69,6 +72,8 @@ public class RoundManager : MonoBehaviour
     // VFX Variables
     private GameObject[] splatAnimsInstantiated;
 
+
+
     void Awake()
     {
         // Setup Manager
@@ -76,7 +81,7 @@ public class RoundManager : MonoBehaviour
         GameManager.OnGameStateChanged += StateChangeManager;
 
         // Load Resources
-        enemy = Resources.Load<GameObject>("Enemy");
+        //enemy = Resources.Load<GameObject>("Enemy");
         level = Resources.Load<GameObject>("Level");
         theTank = Resources.Load<GameObject>("Tank");        
         wall_1x2 = Resources.Load<GameObject>("Wall1x2");
@@ -147,6 +152,7 @@ public class RoundManager : MonoBehaviour
                 KillLevel();
                 KillSplat();
                 KillPickups();
+                KillMines();
                 break;
             case GameState.RestartGame:
                 enemySpawnInterval = enemySpawnIntervalLoader;
@@ -176,7 +182,7 @@ public class RoundManager : MonoBehaviour
         gateLeft = GameObject.Find("GateLeft");
         gateRight = GameObject.Find("GateRight");
         SpawnObstacles();
-
+        
         
 
         // Build Navigation Mesh
@@ -212,7 +218,15 @@ public class RoundManager : MonoBehaviour
     void SpawnObstacles()
     {
         SpawnWalls();
-    }    
+        SpawnShop();
+    }
+    void SpawnShop()
+    {
+        float transformX = Random.Range(-45f, 45f);
+        float transformY = Random.Range(-45f, 45f);
+        Vector3 position = new Vector3(transformX, transformY, 0f);
+        Instantiate(theShop, position, transform.rotation);
+    }
     public void SpawnWalls()
     {
         //Method to draw the ray in scene for debug purpose
@@ -343,5 +357,15 @@ public class RoundManager : MonoBehaviour
         }
     }
 
-    
+    void KillMines()
+    {
+        mines = GameObject.FindGameObjectsWithTag("Mine");
+        for (int i = 0; i < mines.Length; i++)
+        {
+            Destroy(mines[i]);
+        }
+    }
+
+
+
 }
