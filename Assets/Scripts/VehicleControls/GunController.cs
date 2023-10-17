@@ -191,7 +191,7 @@ public class GunController : MonoBehaviour
 
         ShotCount();
 
-        mousePosWorld = mainCam.ScreenToWorldPoint(Input.mousePosition);
+        /*mousePosWorld = mainCam.ScreenToWorldPoint(Input.mousePosition);
         
         Vector3 targetPosition = mousePosWorld;
 
@@ -199,6 +199,21 @@ public class GunController : MonoBehaviour
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, turretRotationSpeedFactor * Time.deltaTime);
+        */
+
+        // Cast a ray from the camera to the mouse position
+        Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            Vector3 targetPosition = hit.point;
+
+            Vector3 dir = targetPosition - transform.position;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
+            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, turretRotationSpeedFactor * Time.deltaTime);
+        }
 
         //PlayTurretMovementSound();
 

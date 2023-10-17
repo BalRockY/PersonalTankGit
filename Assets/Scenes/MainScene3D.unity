@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1178,14 +1178,15 @@ MonoBehaviour:
   theShop: {fileID: 8149988574464065068, guid: fb0aa045deba65a4f9b2e58cd8bb3cdf, type: 3}
   wallSpawn1x1: 120
   wallSpawn1x2: 80
+  wallElevation: -1
   moneySpawnInterval: 1
   moneySpawnFactor: 3
   enemy: {fileID: 530404133728147306, guid: 794a4f01b9309ed43a775ec16a4161d9, type: 3}
   triggerEndRound: 0
   spawnScaler: 0.99995
   enemySpawnInterval: 4
-  enemyClusterCount: 20
-  maxEnemyCount: 1000
+  enemyClusterCount: 15
+  maxEnemyCount: 50
   currentEnemiesSpawnedCount: 0
 --- !u!1 &2074273963
 GameObject:
@@ -1367,6 +1368,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2487185250180622011, guid: c636dd50e986f6d49844571e2eddf5eb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2487185250180622012, guid: c636dd50e986f6d49844571e2eddf5eb, type: 3}
+      propertyPath: orthographic
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2487185250180622014, guid: c636dd50e986f6d49844571e2eddf5eb, type: 3}

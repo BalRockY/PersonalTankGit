@@ -40,6 +40,8 @@ public class RoundManager : MonoBehaviour
     private int wallSpawn1x2;
     private GameObject gateLeft;
     private GameObject gateRight;
+    [SerializeField]
+    private float wallElevation;
 
     // Pick Up Variables
     private GameObject[] pickUpsInstantiated;
@@ -234,7 +236,7 @@ public class RoundManager : MonoBehaviour
         for (int i = 0; i< wallSpawn1x2; i++)
         {
             
-            var position = new Vector3(Random.Range(-50, 50), Random.Range(-50, 50), 0.4f);
+            var position = new Vector3(Random.Range(-50, 50), Random.Range(-50, 50), wallElevation);
             /*Gizmos.color = Color.red;
             Collider2D hit = Physics2D.OverlapBox(position, new Vector2(1, 2), 0f);
             Gizmos.DrawCube(new Vector3(hit.transform.position.x, hit.transform.position.y, 0f), new Vector3(1f,2f,0f));*/
@@ -247,7 +249,7 @@ public class RoundManager : MonoBehaviour
         }
         for (int i = 0; i < wallSpawn1x1; i++)
         {
-            var position = new Vector3(Random.Range(-50, 50), Random.Range(-50, 50), 0.4f);
+            var position = new Vector3(Random.Range(-50, 50), Random.Range(-50, 50), wallElevation);
             if (position != GameObject.FindGameObjectWithTag("Tank").transform.position)
             {
                 Instantiate(wall_1x1, position, Quaternion.identity);
