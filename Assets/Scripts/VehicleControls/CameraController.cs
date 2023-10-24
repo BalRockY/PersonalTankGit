@@ -4,23 +4,29 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public Transform tank;
+    public GameObject tank;
     public float duration;
 
     private void Start()
     {
-        FindTank();
+        //FindTank();
     }
     public void FindTank()
     {
-        tank = GameObject.FindGameObjectWithTag("Tank").transform;
+        tank = GameObject.FindGameObjectWithTag("Tank");
+        Debug.Log("this is: " + tank);
     }
     private void Update()
     {
         if (tank != null)
             transform.position = new Vector3(tank.transform.position.x, tank.transform.position.y, transform.position.z);
         else
+        {
+            tank = GameObject.FindGameObjectWithTag("Tank");
             transform.position = this.transform.position;
+            Debug.Log("this is running.");
+        }
+            
            
     }
 

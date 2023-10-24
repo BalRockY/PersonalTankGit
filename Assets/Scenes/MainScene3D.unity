@@ -1323,6 +1323,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2487185250180622010, guid: c636dd50e986f6d49844571e2eddf5eb, type: 3}
+      propertyPath: tank
+      value: 
+      objectReference: {fileID: 8051467624115152052, guid: ebc4fa0dbecc1c3478dca923db9c5caf, type: 3}
+    - target: {fileID: 2487185250180622010, guid: c636dd50e986f6d49844571e2eddf5eb, type: 3}
       propertyPath: duration
       value: 1
       objectReference: {fileID: 0}
