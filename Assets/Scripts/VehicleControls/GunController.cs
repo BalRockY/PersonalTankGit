@@ -191,6 +191,7 @@ public class GunController : MonoBehaviour
 
         ShotCount();
 
+        // Orthographic view
         /*mousePosWorld = mainCam.ScreenToWorldPoint(Input.mousePosition);
         
         Vector3 targetPosition = mousePosWorld;
@@ -201,7 +202,7 @@ public class GunController : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, turretRotationSpeedFactor * Time.deltaTime);
         */
 
-        // Cast a ray from the camera to the mouse position
+        // Perspective view
         Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
