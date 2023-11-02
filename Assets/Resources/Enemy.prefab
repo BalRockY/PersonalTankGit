@@ -134,7 +134,7 @@ MonoBehaviour:
   selectedUI: {fileID: 530404133105549240}
   attckDmg: 2
   hp: 40
-  agentSpeed: 1.5
+  agentSpeed: 1
   minKillSpeed: 4
   minStunSpeed: 1.2
   upClosePushSpeed: 0.1
@@ -329,6 +329,7 @@ GameObject:
   - component: {fileID: 3469972721663970854}
   - component: {fileID: 7734519455113301558}
   - component: {fileID: 122846670947451333}
+  - component: {fileID: 45660901631855446}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -390,7 +391,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 1ad5188d6e1c5854299348602d06f4ab, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6ec2d69e5ef346a4fa67be87db5144ad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -420,22 +421,45 @@ MonoBehaviour:
   m_SelfShadows: 1
   m_ApplyToSortingLayers: 00000000
   m_ShapePath:
-  - {x: -0.050327063, y: -0.21419919, z: 0}
-  - {x: 0.08490634, y: -0.2118454, z: 0}
-  - {x: 0.105082035, y: -0.12105453, z: 0}
-  - {x: 0.13030171, y: -0.09079087, z: 0}
-  - {x: 0.12525773, y: -0.025219679, z: 0}
-  - {x: 0.079862356, y: 0.030263662, z: 0}
-  - {x: 0.14616203, y: 0.07834923, z: 0}
-  - {x: 0.14038968, y: 0.17653787, z: 0}
-  - {x: 0.10076666, y: 0.24446297, z: 0}
-  - {x: -0.056324005, y: 0.24715304, z: 0}
-  - {x: -0.1360743, y: 0.19906747, z: 0}
-  - {x: -0.13702703, y: 0.09079087, z: 0}
-  - {x: -0.086587906, y: 0.04035139, z: 0}
-  - {x: -0.09163165, y: -0.010087967, z: 0}
-  - {x: -0.09163165, y: -0.11601055, z: 0}
-  - {x: -0.06136799, y: -0.15636206, z: 0}
-  m_ShapePathHash: -727263531
+  - {x: -0.038221493, y: -0.06893218, z: 0}
+  - {x: 0.0050094724, y: -0.08352622, z: 0}
+  - {x: 0.04939636, y: -0.08231667, z: 0}
+  - {x: 0.094236776, y: -0.065811306, z: 0}
+  - {x: 0.13055353, y: -0.03433677, z: 0}
+  - {x: 0.1523436, y: 0.006822221, z: 0}
+  - {x: 0.17171252, y: 0.062507905, z: 0}
+  - {x: 0.156934, y: 0.076266184, z: 0}
+  - {x: 0.15915336, y: 0.093415044, z: 0}
+  - {x: 0.1307058, y: 0.09563383, z: 0}
+  - {x: 0.124371976, y: 0.12677155, z: 0}
+  - {x: 0.07986177, y: 0.13053665, z: 0}
+  - {x: 0.03055428, y: 0.13067047, z: 0}
+  - {x: -0.04663956, y: 0.13093944, z: 0}
+  - {x: -0.058598563, y: 0.10948615, z: 0}
+  - {x: -0.08618361, y: 0.10531757, z: 0}
+  - {x: -0.09385127, y: 0.08151037, z: 0}
+  - {x: -0.11100057, y: 0.05286107, z: 0}
+  - {x: -0.1110006, y: 0.019572001, z: 0}
+  - {x: -0.07347356, y: -0.04499069, z: 0}
+  m_ShapePathHash: 1345729742
   m_Mesh: {fileID: 0}
-  m_InstanceId: 21426
+  m_InstanceId: 25882
+--- !u!95 &45660901631855446
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4096364367457447154}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dcd34214f4504ea4288c22ab06d4fc2b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
