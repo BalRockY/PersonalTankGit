@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c39c4f5b06a6e4dbacddd34aadc780, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 2
   selectedUI: {fileID: 530404133105549240}
   attckDmg: 2
   hp: 40
@@ -317,7 +318,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!1 &4096364367457447154
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,7 +444,7 @@ MonoBehaviour:
   - {x: -0.07347356, y: -0.04499069, z: 0}
   m_ShapePathHash: 1345729742
   m_Mesh: {fileID: 0}
-  m_InstanceId: 25882
+  m_InstanceId: 22222
 --- !u!95 &45660901631855446
 Animator:
   serializedVersion: 3

@@ -9,7 +9,8 @@ public class EnemyController : MonoBehaviour
     private Vector3 target;
     NavMeshAgent agent;
     private GameObject player;
-    
+    [SerializeField] private float rotationSpeed;
+
     public GameObject selectedUI;
 
     // Tank Variables
@@ -89,10 +90,11 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
         SetTargetPosition();
         SetAgentPosition();
         SetAgentSpeed();
+        SetAgentDirection();
         TakeDamgeWhileStunned();
         if (hp <= 0 && killZombieHasRun == false)
         {
@@ -219,6 +221,16 @@ else if (hp <= 0 && killZombieHasRun == false)
     {
         agent.SetDestination(new Vector3(target.x, target.y, transform.position.z));
     }
+    void SetAgentDirection()
+    {
+        Vector3 targ = target;
+        targ.z = 0f;
+        Vector3 objectPos = transform.position;
+        targ.x = targ.x - objectPos.x;
+        targ.y = targ.y - objectPos.y;
+        float angle = Mathf.Atan2(targ.y, targ.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle+90f));
+    }
     void SetAgentSpeed()
     {
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
@@ -236,7 +248,7 @@ else if (hp <= 0 && killZombieHasRun == false)
 
                 currentAgentSpeed = upClosePushSpeed;
             }
-            /*else if(isTouchingPlayer == true) // vil gerne sætte speed til 0 for at undgå at skubbe spilleren ud af kortet. Virker ikke lige nu
+            /*else if(isTouchingPlayer == true) // vil gerne sï¿½tte speed til 0 for at undgï¿½ at skubbe spilleren ud af kortet. Virker ikke lige nu
             {
                 currentAgentSpeed = 0;
             }*/
