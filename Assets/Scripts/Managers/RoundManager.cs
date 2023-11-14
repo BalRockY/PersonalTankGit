@@ -42,6 +42,12 @@ public class RoundManager : MonoBehaviour
     private GameObject gateRight;
     [SerializeField]
     private float wallElevation;
+    [SerializeField]
+    private GameObject streetLamp;
+    [SerializeField]
+    private float lampElevation;
+    [SerializeField]
+    private int streetLampSpawnCount;
 
     // Pick Up Variables
     private GameObject[] pickUpsInstantiated;
@@ -221,6 +227,7 @@ public class RoundManager : MonoBehaviour
     {
         SpawnWalls();
         SpawnShop();
+        SpawnLamps();
     }
     void SpawnShop()
     {
@@ -228,6 +235,23 @@ public class RoundManager : MonoBehaviour
         float transformY = Random.Range(-45f, 45f);
         Vector3 position = new Vector3(transformX, transformY, 0f);
         Instantiate(theShop, position, transform.rotation);
+    }
+    void SpawnLamps()
+    {
+        for (int i = 0; i < streetLampSpawnCount; i++)
+        {
+
+            var position = new Vector3(Random.Range(-50, 50), Random.Range(-50, 50), lampElevation);
+            /*Gizmos.color = Color.red;
+            Collider2D hit = Physics2D.OverlapBox(position, new Vector2(1, 2), 0f);
+            Gizmos.DrawCube(new Vector3(hit.transform.position.x, hit.transform.position.y, 0f), new Vector3(1f,2f,0f));*/
+
+            if (position != GameObject.FindGameObjectWithTag("Tank").transform.position) // Virker ikke, da tankens transform.position er et lille punkt, midt i tanken. Walls kan stadig spawne oven i tanken.
+            {
+                Instantiate(streetLamp, position, Quaternion.identity);
+            }
+
+        }
     }
     public void SpawnWalls()
     {
