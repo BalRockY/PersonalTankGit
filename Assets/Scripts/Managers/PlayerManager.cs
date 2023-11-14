@@ -32,6 +32,8 @@ public class PlayerManager : MonoBehaviour
     public GameObject tankRef;
     public TankController tankConRef;
     public GunController gunConRef;
+    public GameObject snowGeneratorPrefab;
+    public GameObject snowGeneratorPlaceholder;
 
     void Awake()
     {
@@ -45,6 +47,8 @@ public class PlayerManager : MonoBehaviour
         tankRef = GameObject.FindGameObjectWithTag("Tank");
         tankConRef = tankRef.GetComponent<TankController>();
         gunConRef = tankRef.GetComponentInChildren<GunController>();
+        //Instantiate(snowGeneratorPrefab);
+        //StartCoroutine(MoveSnow());
         PlayerSetup();
     }
 
@@ -76,6 +80,13 @@ public class PlayerManager : MonoBehaviour
     {
         // Add to killscore
         kills++;
+    }
+
+    IEnumerator MoveSnow()
+    {
+        snowGeneratorPrefab.transform.position = snowGeneratorPlaceholder.transform.position;
+        yield return new WaitForSeconds(1);
+        MoveSnow();
     }
     /*
     // Gain EXP 
