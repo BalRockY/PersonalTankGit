@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 public class RoundManager : MonoBehaviour
 {
     // Define and create instance of manager
@@ -29,6 +30,15 @@ public class RoundManager : MonoBehaviour
     private NavMeshSurface surface;
     public GameObject caravanImage;
     public GameObject theShop;
+
+    //Environmental variables
+    public bool rain;
+    [SerializeField]
+    private GameObject rainParcticles = null;
+    private Transform mainCamTransform;
+    [SerializeField]
+    private float rainMoveInterval;
+    public bool isRaining;
 
     // Obstacle Variables
     private GameObject wall_1x2;
@@ -102,6 +112,7 @@ public class RoundManager : MonoBehaviour
 
         // Find Camera Controller
         camControl = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
+        mainCamTransform = GameObject.FindGameObjectWithTag("MainCamera").transform;
 
     }
 
@@ -183,6 +194,7 @@ public class RoundManager : MonoBehaviour
         // Spawn & Setup Tank
         Instantiate(theTank);
         camControl.FindTank();
+        theTank = GameObject.FindGameObjectWithTag("Tank");
 
 
         // Spawn & Setup Level
@@ -190,6 +202,12 @@ public class RoundManager : MonoBehaviour
         gateLeft = GameObject.Find("GateLeft");
         gateRight = GameObject.Find("GateRight");
         SpawnObstacles();
+        isRaining = true;
+        if(isRaining)
+        {
+            StartRain();
+        }
+        
         
         
 
@@ -220,6 +238,31 @@ public class RoundManager : MonoBehaviour
         GameManager.Instance.UpdateGameState(GameState.RoundOver);
         yield return new WaitForSeconds(seconds);
         GameManager.Instance.UpdateGameState(GameState.RestartGame);
+        
+    }
+    public void StartRain()
+    {
+        Vector3 particlePos = new Vector3(theTank.transform.position.x, theTank.transform.position.y, -45f);
+        
+        GameObject particles = Instantiate(rainParcticles, particlePos, rainParcticles.transform.rotation);
+        rainParcticles = particles;
+        rainParcticles.transform.position = particlePos;
+        StartCoroutine(RainMover(rainMoveInterval));
+        
+        AudioManager.Instance.aSourceAM3.PlayOneShot(AudioManager.Instance.rain1);
+    }
+    IEnumerator RainMover(float interval)
+    {
+
+        Vector3 particlePos = new Vector3(theTank.transform.position.x, theTank.transform.position.y, -45f);
+        rainParcticles.transform.position = particlePos;
+        Debug.Log("particles pos " + rainParcticles.transform.position);
+        Debug.Log("tank pos: " + theTank.transform.position);
+        yield return new WaitForSeconds(interval);
+        if(isRaining)
+        {
+            StartCoroutine(RainMover(rainMoveInterval));
+        }
         
     }
     // Spawn Functions

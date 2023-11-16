@@ -94,10 +94,15 @@ public class AudioManager : MonoBehaviour
     public AudioClip beep;
     public AudioClip mineExplosion;
 
+    // Environment sounds
+    public AudioClip rain1;
+
     public AudioSource aSourceAM;
     public AudioSource aSourceAM2;
+    public AudioSource aSourceAM3;
 
-    
+
+
 
 
 }
