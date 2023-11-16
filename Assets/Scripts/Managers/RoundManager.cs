@@ -39,6 +39,10 @@ public class RoundManager : MonoBehaviour
     [SerializeField]
     private float rainMoveInterval;
     public bool isRaining;
+    [SerializeField]
+    private GameObject theSun;
+    [SerializeField]
+    private float sunSpeed;
 
     // Obstacle Variables
     private GameObject wall_1x2;
@@ -128,6 +132,8 @@ public class RoundManager : MonoBehaviour
         // Set Spawn Interval
         enemySpawnInterval = enemySpawnInterval * spawnScaler;
 
+        Sunwalk();
+
         // Open gates once
         if(roundComplete == false)
         {
@@ -207,8 +213,7 @@ public class RoundManager : MonoBehaviour
         {
             StartRain();
         }
-        
-        
+
         
 
         // Build Navigation Mesh
@@ -239,6 +244,15 @@ public class RoundManager : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         GameManager.Instance.UpdateGameState(GameState.RestartGame);
         
+    }
+
+    public void Sunwalk()
+    {
+        Vector3 currentPos = theSun.transform.position;
+        Vector3 targetPos = new Vector3(230f, theSun.transform.position.y, theSun.transform.position.z);
+
+        theSun.transform.position = Vector3.MoveTowards(theSun.transform.position, targetPos, sunSpeed * Time.deltaTime);
+
     }
     public void StartRain()
     {
