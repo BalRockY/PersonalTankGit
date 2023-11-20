@@ -1552,7 +1552,7 @@ MonoBehaviour:
   spawnScaler: 0.99995
   enemySpawnInterval: 4
   enemyClusterCount: 15
-  maxEnemyCount: 50
+  maxEnemyCount: 100
   currentEnemiesSpawnedCount: 0
 --- !u!1 &1450911848
 GameObject:
