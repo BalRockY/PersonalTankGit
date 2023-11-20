@@ -43,6 +43,12 @@ public class RoundManager : MonoBehaviour
     private GameObject theSun;
     [SerializeField]
     private float sunSpeed;
+    [SerializeField]
+    private Camera mainCamera;
+    [SerializeField]
+    private GameObject rainImpactPrefab;
+    [SerializeField]
+    private float rainImpactInterval;
 
     // Obstacle Variables
     private GameObject wall_1x2;
@@ -261,11 +267,47 @@ public class RoundManager : MonoBehaviour
         GameObject particles = Instantiate(rainParcticles, particlePos, rainParcticles.transform.rotation);
         rainParcticles = particles;
         rainParcticles.transform.position = particlePos;
-        StartCoroutine(RainMover(rainMoveInterval));
+        
         
         AudioManager.Instance.aSourceAM3.PlayOneShot(AudioManager.Instance.rain1);
+
+        StartCoroutine(RainMover(rainMoveInterval));
+        StartCoroutine(RainImpact(rainImpactInterval));
     }
-    IEnumerator RainMover(float interval)
+
+    IEnumerator RainImpact(float interval)
+    {
+        
+        StartCoroutine(RainImpactSpawner());
+        yield return new WaitForSeconds(interval);
+        if(isRaining)
+        {
+            StartCoroutine(RainImpact(rainImpactInterval));
+        }
+    }
+
+    IEnumerator RainImpactSpawner()
+    {
+        Camera mainCamera = Camera.main;
+        float cameraHeight = 2f * Mathf.Tan(mainCamera.fieldOfView * 0.5f * Mathf.Deg2Rad) * mainCamera.transform.position.z;
+        float cameraWidth = cameraHeight * mainCamera.aspect;
+
+        Vector2 cameraBounds = new Vector2(cameraWidth / 2f, cameraHeight / 2f);
+
+        float spawnX = Random.Range(-cameraBounds.x, cameraBounds.x);
+        float spawnY = Random.Range(-cameraBounds.y, cameraBounds.y);
+
+        Vector3 spawnPosition = new Vector3(spawnX, spawnY, rainImpactPrefab.transform.position.z);
+
+
+        GameObject rainImpactObject = Instantiate(rainImpactPrefab, spawnPosition, Quaternion.identity);
+        yield return new WaitForSeconds(0.4f);
+        Destroy(rainImpactObject);
+
+    }
+
+
+IEnumerator RainMover(float interval)
     {
 
         Vector3 particlePos = new Vector3(theTank.transform.position.x, theTank.transform.position.y, -45f);
