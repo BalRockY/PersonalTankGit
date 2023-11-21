@@ -18,6 +18,9 @@ public class RoundManager : MonoBehaviour
         }
     }
 
+    //Manager variables
+    private AudioSource AMaSource3;
+
     // Player Variables
     public GameObject theTank;
     private TankController tankController;
@@ -32,55 +35,39 @@ public class RoundManager : MonoBehaviour
     public GameObject theShop;
 
     //Environmental variables
-    public bool rain;
-    [SerializeField]
-    private GameObject rainParcticles = null;
+    [SerializeField] private GameObject rainParcticles = null;
     private Transform mainCamTransform;
-    [SerializeField]
-    private float rainMoveInterval;
+    [SerializeField] private float rainMoveInterval;
     public bool isRaining;
-    [SerializeField]
-    private GameObject theSun;
-    [SerializeField]
-    private float sunSpeed;
-    [SerializeField]
-    private Camera mainCamera;
-    [SerializeField]
-    private GameObject rainImpactPrefab;
-    [SerializeField]
-    private float rainImpactInterval;
+    [SerializeField] private GameObject theSun;
+    [SerializeField] private float sunSpeed;
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private GameObject rainImpactPrefab;
+    [SerializeField] private float rainImpactInterval;
+    [SerializeField] private Vector3 theSunStartPos;
 
     // Obstacle Variables
     private GameObject wall_1x2;
     private GameObject wall_1x1;
     private GameObject[] obstaclesInstantiated;
-    [SerializeField]
-    private int wallSpawn1x1;
-    [SerializeField]
-    private int wallSpawn1x2;
+    [SerializeField] private int wallSpawn1x1;
+    [SerializeField] private int wallSpawn1x2;
     private GameObject gateLeft;
     private GameObject gateRight;
-    [SerializeField]
-    private float wallElevation;
-    [SerializeField]
-    private GameObject streetLamp;
-    [SerializeField]
-    private float lampElevation;
-    [SerializeField]
-    private int streetLampSpawnCount;
+    [SerializeField] private float wallElevation;
+    [SerializeField] private GameObject streetLamp;
+    [SerializeField] private float lampElevation;
+    [SerializeField] private int streetLampSpawnCount;
 
     // Pick Up Variables
     private GameObject[] pickUpsInstantiated;
     private GameObject moneyPickup;
-    [SerializeField]
-    private float moneySpawnInterval;
-    [SerializeField]
-    private int moneySpawnFactor;
+    [SerializeField] private float moneySpawnInterval;
+    [SerializeField] private int moneySpawnFactor;
 
     // Enemy Variables
     private GameObject[] zombiesInstantiated;
-    [SerializeField]
-    private GameObject enemy;
+    [SerializeField] private GameObject enemy;
 
     // Level triggers
     private bool roundComplete = false;
@@ -88,11 +75,9 @@ public class RoundManager : MonoBehaviour
 
 
     // Enemy spawn variables
-    [SerializeField]
-    private float spawnScaler = 0.99995f;
+    [SerializeField] private float spawnScaler = 0.99995f;
     private float enemySpawnIntervalLoader;
-    [SerializeField]
-    private float enemySpawnInterval;
+    [SerializeField] private float enemySpawnInterval;
     public int enemyClusterCount;
     public int maxEnemyCount;
     public int currentEnemiesSpawnedCount;
@@ -124,6 +109,7 @@ public class RoundManager : MonoBehaviour
         camControl = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
         mainCamTransform = GameObject.FindGameObjectWithTag("MainCamera").transform;
 
+        AMaSource3 = AudioManager.Instance.aSourceAM3;
     }
 
     // Start is called before the first frame update
@@ -219,8 +205,10 @@ public class RoundManager : MonoBehaviour
         {
             StartRain();
         }
+        Instantiate(theSun);
+        theSun.transform.position = theSunStartPos;
 
-        
+
 
         // Build Navigation Mesh
         surface.BuildNavMesh();
@@ -254,7 +242,7 @@ public class RoundManager : MonoBehaviour
 
     public void Sunwalk()
     {
-        Vector3 currentPos = theSun.transform.position;
+        
         Vector3 targetPos = new Vector3(230f, theSun.transform.position.y, theSun.transform.position.z);
 
         theSun.transform.position = Vector3.MoveTowards(theSun.transform.position, targetPos, sunSpeed * Time.deltaTime);
@@ -267,13 +255,14 @@ public class RoundManager : MonoBehaviour
         GameObject particles = Instantiate(rainParcticles, particlePos, rainParcticles.transform.rotation);
         rainParcticles = particles;
         rainParcticles.transform.position = particlePos;
-        
-        
-        AudioManager.Instance.aSourceAM3.PlayOneShot(AudioManager.Instance.rain1);
+
+
+        //AManager.Play();
 
         StartCoroutine(RainMover(rainMoveInterval));
         StartCoroutine(RainImpact(rainImpactInterval));
     }
+
 
     IEnumerator RainImpact(float interval)
     {
@@ -288,24 +277,26 @@ public class RoundManager : MonoBehaviour
 
     IEnumerator RainImpactSpawner()
     {
+        
         Camera mainCamera = Camera.main;
-        float cameraHeight = 2f * Mathf.Tan(mainCamera.fieldOfView * 0.5f * Mathf.Deg2Rad) * mainCamera.transform.position.z;
-        float cameraWidth = cameraHeight * mainCamera.aspect;
-
-        Vector2 cameraBounds = new Vector2(cameraWidth / 2f, cameraHeight / 2f);
-
-        float spawnX = Random.Range(-cameraBounds.x, cameraBounds.x);
-        float spawnY = Random.Range(-cameraBounds.y, cameraBounds.y);
+        // Manually set range. The numbers represent Unity units.
+        float spawnX = mainCamera.transform.position.x + Random.Range(-8f, 8f); 
+        float spawnY = mainCamera.transform.position.y + Random.Range(-6f, 6f);
 
         Vector3 spawnPosition = new Vector3(spawnX, spawnY, rainImpactPrefab.transform.position.z);
-
 
         GameObject rainImpactObject = Instantiate(rainImpactPrefab, spawnPosition, Quaternion.identity);
         yield return new WaitForSeconds(0.4f);
         Destroy(rainImpactObject);
-
     }
 
+    Vector2 CalculateCameraBounds(Camera camera)
+    {
+        float cameraHeight = 2f * Mathf.Tan(camera.fieldOfView * 0.5f * Mathf.Deg2Rad) * camera.transform.position.z;
+        float cameraWidth = cameraHeight * camera.aspect;
+
+        return new Vector2(cameraWidth / 2f, cameraHeight / 2f);
+    }
 
 IEnumerator RainMover(float interval)
     {

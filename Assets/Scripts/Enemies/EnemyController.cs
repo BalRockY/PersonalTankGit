@@ -156,7 +156,7 @@ else if (hp <= 0 && killZombieHasRun == false)
         PlayerManager.Instance.PlayerKill();
         //PlayerManager.Instance.GainEXP(exp);
         Instantiate(splatAnimGO, this.transform.position, Quaternion.identity);
-        RoundManager.Instance.MoneySpawn(this.transform.position);
+        //RoundManager.Instance.MoneySpawn(this.transform.position); //Removed Money pickup for now.
         Destroy(this.gameObject/*, AudioManager.Instance.splatSound.length*/); // Wait for longest bullethitflesh clip, which is bulletHitFlesh1
     }
 
