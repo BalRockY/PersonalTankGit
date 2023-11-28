@@ -256,8 +256,9 @@ public class RoundManager : MonoBehaviour
         rainParcticles = particles;
         rainParcticles.transform.position = particlePos;
 
-
-        //AManager.Play();
+        AMaSource3.clip = AudioManager.Instance.rain1;
+        AMaSource3.Play();
+        AMaSource3.loop = true;
 
         StartCoroutine(RainMover(rainMoveInterval));
         StartCoroutine(RainImpact(rainImpactInterval));
