@@ -49,9 +49,11 @@ public class RoundManager : MonoBehaviour
     // Obstacle Variables
     private GameObject wall_1x2;
     private GameObject wall_1x1;
+    [SerializeField] private GameObject industrialBuilding_1;
     private GameObject[] obstaclesInstantiated;
     [SerializeField] private int wallSpawn1x1;
     [SerializeField] private int wallSpawn1x2;
+    [SerializeField] private int building_industr_spawnCount;
     private GameObject gateLeft;
     private GameObject gateRight;
     [SerializeField] private float wallElevation;
@@ -316,7 +318,8 @@ IEnumerator RainMover(float interval)
     // Spawn Functions
     void SpawnObstacles()
     {
-        SpawnWalls();
+        SpawnIndustrialBuildings();
+        //SpawnWalls();
         SpawnShop();
         SpawnLamps();
     }
@@ -340,6 +343,23 @@ IEnumerator RainMover(float interval)
             if (position != GameObject.FindGameObjectWithTag("Tank").transform.position) // Virker ikke, da tankens transform.position er et lille punkt, midt i tanken. Walls kan stadig spawne oven i tanken.
             {
                 Instantiate(streetLamp, position, Quaternion.identity);
+            }
+
+        }
+    }
+    void SpawnIndustrialBuildings()
+    {
+        for (int i = 0; i < building_industr_spawnCount; i++)
+        {
+
+            var position = new Vector3(Random.Range(-50, 50), Random.Range(-50, 50), wallElevation);
+            /*Gizmos.color = Color.red;
+            Collider2D hit = Physics2D.OverlapBox(position, new Vector2(1, 2), 0f);
+            Gizmos.DrawCube(new Vector3(hit.transform.position.x, hit.transform.position.y, 0f), new Vector3(1f,2f,0f));*/
+
+            if (position != GameObject.FindGameObjectWithTag("Tank").transform.position) // Virker ikke, da tankens transform.position er et lille punkt, midt i tanken. Walls kan stadig spawne oven i tanken.
+            {
+                Instantiate(industrialBuilding_1, position, Quaternion.identity);
             }
 
         }

@@ -2909,7 +2909,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 70f87dbe653bd7b4584f39064449dc30, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6907,7 +6907,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 868188030182302308, guid: 2b2de051c9ae0924582c0f0c8cb73eb1, type: 3}
       propertyPath: m_InstanceId
-      value: -330400
+      value: -891384
       objectReference: {fileID: 0}
     - target: {fileID: 1006779987688517252, guid: 2b2de051c9ae0924582c0f0c8cb73eb1, type: 3}
       propertyPath: m_Mesh
@@ -6989,7 +6989,8 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 22
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4930017150446447110, guid: 2b2de051c9ae0924582c0f0c8cb73eb1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2b2de051c9ae0924582c0f0c8cb73eb1, type: 3}
 --- !u!4 &2158090967678980687 stripped
 Transform:
