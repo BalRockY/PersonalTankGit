@@ -27,6 +27,7 @@ public class EnemyController : MonoBehaviour
 
     // Audio Variables
     private AudioSource aSource;
+    [SerializeField] private AudioSource aSource2;
     private AudioClip[] bulletHitFleshSounds;
 
     private bool killZombieHasRun = false;
@@ -126,9 +127,7 @@ public class EnemyController : MonoBehaviour
     {
         hp -= incomingdmg;
         int randomnumber = Random.Range(0, 2);
-        aSource.volume = 0.3f;
-        aSource.PlayOneShot(bulletHitFleshSounds[randomnumber]);
-        Debug.Log("aclip played: " + bulletHitFleshSounds[randomnumber].name);
+        aSource2.PlayOneShot(bulletHitFleshSounds[randomnumber]);
         
 
         /*if(isStunned == true && hp <= 0 && killZombieHasRun == false) // this was to play splat sound only when run over, but it feels weird not having it when killed normally
