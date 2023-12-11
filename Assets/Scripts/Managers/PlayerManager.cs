@@ -28,6 +28,10 @@ public class PlayerManager : MonoBehaviour
     public int exp;
     public int expReq;
 
+    // Tank Stats
+    public float turretRotationSpeed;
+    public float firingSpeed;
+
     // References
     public GameObject tankRef;
     public TankController tankConRef;

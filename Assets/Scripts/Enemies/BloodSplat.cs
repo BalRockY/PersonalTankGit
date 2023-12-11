@@ -14,14 +14,14 @@ public class BloodSplat : MonoBehaviour
     // Sprite Variables
     private SpriteRenderer sprRendAnim;
     private SpriteRenderer sprRendBloodPool;
-    private Transform tank;
+    private GameObject tank;
 
 
 
     private void Awake()
     {
         // Setup Tank Reference
-        tank = GameObject.FindGameObjectWithTag("Tank").transform;
+        tank = GameObject.FindGameObjectWithTag("Tank");
 
         // Setup Sprite References
         sprRendAnim = this.gameObject.GetComponent<SpriteRenderer>();

@@ -8,12 +8,12 @@ public class wallController : MonoBehaviour
     private AudioClip[] bulletHitWallSounds;
     private void Awake()
     {
-        aSource = this.gameObject.GetComponent<AudioSource>();
-        bulletHitWallSounds = AudioManager.Instance.bulletHitMetalClips;
+        
     }
     void Start()
     {
-        
+        aSource = this.gameObject.GetComponent<AudioSource>();
+        bulletHitWallSounds = AudioManager.Instance.bulletHitMetalClips;
     }
 
     // Update is called once per frame

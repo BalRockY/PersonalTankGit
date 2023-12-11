@@ -60,6 +60,7 @@ public class RoundManager : MonoBehaviour
     [SerializeField] private GameObject streetLamp;
     [SerializeField] private float lampElevation;
     [SerializeField] private int streetLampSpawnCount;
+    public WallPositionData metalWallSpawnPositions;
 
     // Pick Up Variables
     private GameObject[] pickUpsInstantiated;
@@ -128,19 +129,24 @@ public class RoundManager : MonoBehaviour
 
         Sunwalk();
 
+        //  HandleOpenGates()
+         
+    }
+
+    void HandleOpenGates()
+    {
         // Open gates once
-        if(roundComplete == false)
+        /*if (roundComplete == false)
         {
             GateOpener();
         }
 
         // Win round once
-        if(triggerEndRound == true)
+        if (triggerEndRound == true)
         {
             HandleRoundWon();
             triggerEndRound = false;
-        }
-        
+        }*/
     }
 
     // State Handlers
@@ -197,12 +203,8 @@ public class RoundManager : MonoBehaviour
         theTank = GameObject.FindGameObjectWithTag("Tank");
 
 
-        // Spawn & Setup Level
-        Instantiate(level);
-        gateLeft = GameObject.Find("GateLeft");
-        gateRight = GameObject.Find("GateRight");
-        SpawnObstacles();
-        isRaining = true;
+        
+        //isRaining = true;
         if(isRaining)
         {
             StartRain();
@@ -213,19 +215,29 @@ public class RoundManager : MonoBehaviour
 
 
         // Build Navigation Mesh
-        surface.BuildNavMesh();
+        //surface.BuildNavMesh();
 
         // ADD ROUND START COUNT DOWN
-
+        
+        
+        SpawnObstacles();
         // Start Spawn Enemies
         StartCoroutine(ZombieSpawner());
 
         // Reference complete level-area
-        caravanImage = GameObject.Find("CaravanPicture");
+        //caravanImage = GameObject.Find("CaravanPicture");
 
 
         yield return new WaitForEndOfFrame();
 
+        
+    }
+    void SpawnArenaLevel()
+    {
+        // Spawn & Setup Level
+        Instantiate(level);
+        gateLeft = GameObject.Find("GateLeft");
+        gateRight = GameObject.Find("GateRight");
         
     }
 
@@ -319,7 +331,7 @@ IEnumerator RainMover(float interval)
     void SpawnObstacles()
     {
         SpawnIndustrialBuildings();
-        //SpawnWalls();
+        SpawnWalls();
         SpawnShop();
         SpawnLamps();
     }
@@ -368,6 +380,7 @@ IEnumerator RainMover(float interval)
     {
         //Method to draw the ray in scene for debug purpose
         
+        // Random location spawner:
         for (int i = 0; i< wallSpawn1x2; i++)
         {
             
@@ -389,6 +402,17 @@ IEnumerator RainMover(float interval)
             {
                 Instantiate(wall_1x1, position, Quaternion.identity);
             }
+        }
+
+        if (metalWallSpawnPositions == null || wall_1x1 == null)
+        {
+            Debug.LogError("PositionData or objectPrefab is not assigned!");
+            return;
+        }
+
+        foreach (Vector3 position in metalWallSpawnPositions.positions)
+        {
+            Instantiate(wall_1x1, position, Quaternion.identity);
         }
 
     }
@@ -422,19 +446,31 @@ IEnumerator RainMover(float interval)
             {
                 break;
             }
-            Vector3 enemySpawnLoc = new Vector3(Random.Range(-48, 48), Random.Range(-48, 48), 0);
             
+            Vector3 enemySpawnLoc;
+            do
+            {
+                enemySpawnLoc = new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), 0);
+            } while (IsSpawnLocationInsideFrustum(enemySpawnLoc, mainCamera, Mathf.Abs(mainCamera.transform.position.z)));
             for (int i = 0; i < enemyClusterCount; i++)
             {
                 Instantiate(enemy, enemySpawnLoc, Quaternion.identity);
                 currentEnemiesSpawnedCount++;
-                Debug.Log(currentEnemiesSpawnedCount);
             }
 
             yield return new WaitForSeconds(enemySpawnInterval);
         }
     }
-    
+    bool IsSpawnLocationInsideFrustum(Vector3 spawnLocation, Camera camera, float cameraDistance)
+    {
+        Vector3 viewportPoint = camera.WorldToViewportPoint(spawnLocation);
+
+        // Check if the spawn location is inside the camera's frustum
+        return viewportPoint.x >= 0 && viewportPoint.x <= 1 &&
+               viewportPoint.y >= 0 && viewportPoint.y <= 1 &&
+               viewportPoint.z >= 0 && viewportPoint.z <= cameraDistance;
+    }
+
     void GateOpener()
     {
         

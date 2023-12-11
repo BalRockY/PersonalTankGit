@@ -10,6 +10,8 @@ public class EnemyController : MonoBehaviour
     NavMeshAgent agent;
     private GameObject player;
     [SerializeField] private float rotationSpeed;
+    private float distance;
+
 
     public GameObject selectedUI;
 
@@ -162,12 +164,12 @@ else if (hp <= 0 && killZombieHasRun == false)
     // Collision Triggers
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("agent hit: " + collision.gameObject);
+        //Debug.Log("agent hit: " + collision.gameObject);
         if (collision.gameObject.tag == "Tank")
         {
             Debug.Log("enemy hit");
             var chassisHitDmg = tankScript.speed * tankScript.speedAsDmgMultiplier;
-            Debug.Log(chassisHitDmg);
+            
             hp -= chassisHitDmg;
             if (/*tankScript.speed <= minKillSpeed && */tankScript.speed > minStunSpeed)
             {
@@ -218,7 +220,11 @@ else if (hp <= 0 && killZombieHasRun == false)
     }
     void SetAgentPosition()
     {
-        agent.SetDestination(new Vector3(target.x, target.y, transform.position.z));
+        // NavMesh:
+        //agent.SetDestination(new Vector3(target.x, target.y, transform.position.z));
+
+        distance = Vector2.Distance(transform.position, target);
+        transform.position = Vector2.MoveTowards(this.transform.position, target, currentAgentSpeed * Time.deltaTime);
     }
     void SetAgentDirection()
     {

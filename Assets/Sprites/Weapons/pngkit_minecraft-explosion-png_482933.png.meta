@@ -3,7 +3,7 @@ guid: 4dbb3e870c855b440bbe2d5920c38c3f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -24,6 +24,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -62,6 +63,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -89,6 +91,30 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -1687,6 +1713,82 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      pngkit_minecraft-explosion-png_482933_0: -1570260399575766532
+      pngkit_minecraft-explosion-png_482933_1: 1847033571477961041
+      pngkit_minecraft-explosion-png_482933_10: 6068663238216920473
+      pngkit_minecraft-explosion-png_482933_11: -2667279747802539805
+      pngkit_minecraft-explosion-png_482933_12: 1665692391706247002
+      pngkit_minecraft-explosion-png_482933_13: -5130511688958756837
+      pngkit_minecraft-explosion-png_482933_14: -2213349344548864951
+      pngkit_minecraft-explosion-png_482933_15: 5325749191813106825
+      pngkit_minecraft-explosion-png_482933_16: -4184337912601805930
+      pngkit_minecraft-explosion-png_482933_17: -8883992824451948781
+      pngkit_minecraft-explosion-png_482933_18: -3719136747594656594
+      pngkit_minecraft-explosion-png_482933_19: 8320183519447093497
+      pngkit_minecraft-explosion-png_482933_2: 2299958814753179579
+      pngkit_minecraft-explosion-png_482933_20: -4917436825390123843
+      pngkit_minecraft-explosion-png_482933_21: -1814462617900245669
+      pngkit_minecraft-explosion-png_482933_22: -8546285811392198001
+      pngkit_minecraft-explosion-png_482933_23: -5106593557560235365
+      pngkit_minecraft-explosion-png_482933_24: -7150641285974065656
+      pngkit_minecraft-explosion-png_482933_25: 7028284253072583399
+      pngkit_minecraft-explosion-png_482933_26: -8326594646126092600
+      pngkit_minecraft-explosion-png_482933_27: -2092390160530867570
+      pngkit_minecraft-explosion-png_482933_28: 857579968793454341
+      pngkit_minecraft-explosion-png_482933_29: 6251840714936935907
+      pngkit_minecraft-explosion-png_482933_3: 8988949301319106186
+      pngkit_minecraft-explosion-png_482933_30: 5268928938409481725
+      pngkit_minecraft-explosion-png_482933_31: -7363868142293299101
+      pngkit_minecraft-explosion-png_482933_32: -3421764355828733643
+      pngkit_minecraft-explosion-png_482933_33: -6350976586825940267
+      pngkit_minecraft-explosion-png_482933_34: -8957222149564804863
+      pngkit_minecraft-explosion-png_482933_35: -2890933325686122423
+      pngkit_minecraft-explosion-png_482933_36: -1121921483468739128
+      pngkit_minecraft-explosion-png_482933_37: 4736957909109126030
+      pngkit_minecraft-explosion-png_482933_38: 2142374837639161695
+      pngkit_minecraft-explosion-png_482933_39: 2358451973035499862
+      pngkit_minecraft-explosion-png_482933_4: 4037842571420869781
+      pngkit_minecraft-explosion-png_482933_40: 1249640455403326783
+      pngkit_minecraft-explosion-png_482933_41: -6710943318160311270
+      pngkit_minecraft-explosion-png_482933_42: 4036672317497848890
+      pngkit_minecraft-explosion-png_482933_43: -1226262941425293197
+      pngkit_minecraft-explosion-png_482933_44: 9107070489342651819
+      pngkit_minecraft-explosion-png_482933_45: -8117568215802164202
+      pngkit_minecraft-explosion-png_482933_46: 3638886310490388734
+      pngkit_minecraft-explosion-png_482933_47: 1818655641453948907
+      pngkit_minecraft-explosion-png_482933_48: -6460651936213590016
+      pngkit_minecraft-explosion-png_482933_49: -8352133064414978374
+      pngkit_minecraft-explosion-png_482933_5: -4242840648896744144
+      pngkit_minecraft-explosion-png_482933_50: -9092948440944483458
+      pngkit_minecraft-explosion-png_482933_51: 5039479634901613217
+      pngkit_minecraft-explosion-png_482933_52: 3377225702566968781
+      pngkit_minecraft-explosion-png_482933_53: -9101042795022869528
+      pngkit_minecraft-explosion-png_482933_54: 7095298767144718263
+      pngkit_minecraft-explosion-png_482933_55: -6858003953785474145
+      pngkit_minecraft-explosion-png_482933_56: 699594944508995359
+      pngkit_minecraft-explosion-png_482933_57: -15408492028729637
+      pngkit_minecraft-explosion-png_482933_58: -5223295873592498424
+      pngkit_minecraft-explosion-png_482933_59: 1530925136798664375
+      pngkit_minecraft-explosion-png_482933_6: -4945456939414358547
+      pngkit_minecraft-explosion-png_482933_60: -895841440686678471
+      pngkit_minecraft-explosion-png_482933_62: -5642996043719005058
+      pngkit_minecraft-explosion-png_482933_64: 5829386191903430047
+      pngkit_minecraft-explosion-png_482933_66: -5346975301511593249
+      pngkit_minecraft-explosion-png_482933_68: -1053998722084418791
+      pngkit_minecraft-explosion-png_482933_7: 7564303089254184020
+      pngkit_minecraft-explosion-png_482933_71: -9005247776848624932
+      pngkit_minecraft-explosion-png_482933_74: -7542064794055345907
+      pngkit_minecraft-explosion-png_482933_76: 6265945293254519322
+      pngkit_minecraft-explosion-png_482933_78: 7922124861870565672
+      pngkit_minecraft-explosion-png_482933_8: -6044300318694007524
+      pngkit_minecraft-explosion-png_482933_80: -3389421749359140745
+      pngkit_minecraft-explosion-png_482933_82: -6113968858785885404
+      pngkit_minecraft-explosion-png_482933_84: 9074114350716837430
+      pngkit_minecraft-explosion-png_482933_85: -8728425150344268661
+      pngkit_minecraft-explosion-png_482933_86: -7938126758841479264
+      pngkit_minecraft-explosion-png_482933_87: -1042738317634109422
+      pngkit_minecraft-explosion-png_482933_9: -4541830264695473370
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

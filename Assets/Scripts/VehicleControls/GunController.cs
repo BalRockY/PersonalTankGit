@@ -107,6 +107,8 @@ public class GunController : MonoBehaviour
         // Store the initial rotation value and time
         previousRotation = transform.rotation.eulerAngles.z;
         previousTime = Time.time;
+
+        turretRotationSpeedFactor = PlayerManager.Instance.turretRotationSpeed;
     }
 
     IEnumerator ShowGunshotSprite(float seconds)
@@ -149,7 +151,7 @@ public class GunController : MonoBehaviour
             Instantiate(projectile, firepointL.position, transform.rotation);
             Instantiate(projectile, firepointR.position, transform.rotation);
 
-            
+            volleyFiringSpeed = PlayerManager.Instance.firingSpeed;
             yield return new WaitForSeconds(volleyFiringSpeed);
 
             
@@ -203,7 +205,7 @@ public class GunController : MonoBehaviour
         */
 
         // Perspective view
-        Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+        /*Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit))
@@ -214,6 +216,42 @@ public class GunController : MonoBehaviour
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
             Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, turretRotationSpeedFactor * Time.deltaTime);
+        }*/
+
+
+        // Chat gpt
+        {
+            // Get the mouse position in screen coordinates
+            Vector3 mousePosition = Input.mousePosition;
+
+            // Convert the mouse position to a ray from the camera
+            Ray ray2 = Camera.main.ScreenPointToRay(mousePosition);
+
+            // Create a plane at the object's position
+            Plane plane = new Plane(Vector3.forward, transform.position);
+
+            // Intersect the ray with the plane
+            if (plane.Raycast(ray2, out float distance))
+            {
+                // Get the point on the plane where the ray intersects
+                Vector3 targetPoint = ray2.GetPoint(distance);
+
+                // Rotate towards the target point
+                RotateTowards(targetPoint);
+            }
+        }
+
+        void RotateTowards(Vector3 targetPoint)
+        {
+            // Calculate the direction to the target point
+            Vector3 direction = targetPoint - transform.position;
+
+            float angle2 = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+
+            Quaternion targetRotation = Quaternion.AngleAxis(angle2, Vector3.forward);
+
+            // Smoothly rotate towards the target rotation
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turretRotationSpeedFactor * Time.deltaTime);
         }
 
         //PlayTurretMovementSound();
