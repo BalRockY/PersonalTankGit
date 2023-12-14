@@ -17,7 +17,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    // Round Stats
+    // Player Stats
     public float hp;
     public float MaxHP;
     public float MaxSpeed;
@@ -27,6 +27,7 @@ public class PlayerManager : MonoBehaviour
     public int lvl;
     public int exp;
     public int expReq;
+    public bool inVehicle;
 
     // Tank Stats
     public float turretRotationSpeed;
@@ -36,8 +37,7 @@ public class PlayerManager : MonoBehaviour
     public GameObject tankRef;
     public TankController tankConRef;
     public GunController gunConRef;
-    public GameObject snowGeneratorPrefab;
-    public GameObject snowGeneratorPlaceholder;
+
 
     void Awake()
     {
@@ -54,6 +54,54 @@ public class PlayerManager : MonoBehaviour
         //Instantiate(snowGeneratorPrefab);
         //StartCoroutine(MoveSnow());
         PlayerSetup();
+        
+    }
+
+    // State Handlers
+    void StateChangeManager(GameState newState)
+    {
+        switch (newState)
+        {
+            case GameState.MainMenu:
+                break;
+
+            case GameState.Start:
+                break;
+
+            case GameState.Playing:
+                break;
+
+            case GameState.Paused:
+                break;
+
+            case GameState.RoundOver:
+                break;
+
+            case GameState.RestartGame:
+                break;
+
+            case GameState.RoundWon:
+                break;
+
+            case GameState.OnFoot:
+                inVehicle = false;
+                tankConRef.enabled = false;
+                Debug.Log("OnFoot gamestate");
+                break;
+
+            case GameState.InVehicle:
+                inVehicle = true;
+                tankConRef.enabled = true;
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    private void Update()
+    {
+        VehicleEnterExit();
     }
 
     // Player Setup
@@ -67,6 +115,17 @@ public class PlayerManager : MonoBehaviour
         exp = 0;
         expReq = 100;
         MaxSpeed = tankConRef.maxSpeed;
+    }
+
+    void VehicleEnterExit()
+    {
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            if(inVehicle)
+            {
+                GameManager.Instance.UpdateGameState(GameState.OnFoot);
+            }
+        }
     }
 
     // Player Hit By Enemy
@@ -86,12 +145,8 @@ public class PlayerManager : MonoBehaviour
         kills++;
     }
 
-    IEnumerator MoveSnow()
-    {
-        snowGeneratorPrefab.transform.position = snowGeneratorPlaceholder.transform.position;
-        yield return new WaitForSeconds(1);
-        MoveSnow();
-    }
+
+
     /*
     // Gain EXP 
     public void GainEXP(int expEarned)

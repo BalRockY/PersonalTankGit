@@ -130,5 +130,7 @@ public enum GameState
     Paused,
     RoundOver,
     RestartGame,
-    RoundWon
+    RoundWon,
+    OnFoot,
+    InVehicle
 }

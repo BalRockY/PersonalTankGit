@@ -7,10 +7,14 @@ public class EnemyController : MonoBehaviour
 {
     // Navigation Variables
     private Vector3 target;
-    NavMeshAgent agent;
+    //NavMeshAgent agent;
     private GameObject player;
     [SerializeField] private float rotationSpeed;
-    private float distance;
+    private float distanceToPlayer;
+    [SerializeField] private float currentAgentSpeed;
+    public float attractionWeight = 1.0f;
+    public float repulsionWeight = 1.0f;
+    public float repulsionRadius = 2.0f;
 
 
     public GameObject selectedUI;
@@ -35,7 +39,7 @@ public class EnemyController : MonoBehaviour
     private bool killZombieHasRun = false;
 
     private new BoxCollider2D collider2D;
-    private float currentAgentSpeed;
+
 
     [SerializeField]
     private float attckDmg;
@@ -70,9 +74,9 @@ public class EnemyController : MonoBehaviour
         tank = player.transform;
 
         // Setup Navigation
-        agent = GetComponent<NavMeshAgent>();
-        agent.updateRotation = false;
-        agent.updateUpAxis = false;
+        //agent = GetComponent<NavMeshAgent>();
+        //agent.updateRotation = false;
+        //agent.updateUpAxis = false;
 
         // Setup Collision
         collider2D = this.GetComponent<BoxCollider2D>();
@@ -93,11 +97,13 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+        //CalculateMovement();
         SetTargetPosition();
         SetAgentPosition();
-        SetAgentSpeed();
         SetAgentDirection();
+        SetAgentSpeed();
+
         TakeDamgeWhileStunned();
         if (hp <= 0 && killZombieHasRun == false)
         {
@@ -223,9 +229,10 @@ else if (hp <= 0 && killZombieHasRun == false)
         // NavMesh:
         //agent.SetDestination(new Vector3(target.x, target.y, transform.position.z));
 
-        distance = Vector2.Distance(transform.position, target);
+        distanceToPlayer = Vector2.Distance(transform.position, target);
         transform.position = Vector2.MoveTowards(this.transform.position, target, currentAgentSpeed * Time.deltaTime);
     }
+
     void SetAgentDirection()
     {
         Vector3 targ = target;
@@ -235,6 +242,49 @@ else if (hp <= 0 && killZombieHasRun == false)
         targ.y = targ.y - objectPos.y;
         float angle = Mathf.Atan2(targ.y, targ.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle+90f));
+        
+    }
+
+    void CalculateMovement()
+    {
+        SetTargetPosition();
+
+        // Calculate attraction vector to player
+        Vector3 attractionVector = player.transform.position - transform.position;
+
+        // Calculate repulsion vectors from other zombies
+        Vector3 repulsionVector = Vector3.zero;
+        GameObject[] zombies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject otherZombieObject in zombies)
+        {
+            if (otherZombieObject != gameObject)
+            {
+                float distance = Vector3.Distance(transform.position, otherZombieObject.transform.position);
+                if (distance < repulsionRadius)
+                {
+                    repulsionVector += (transform.position - otherZombieObject.transform.position).normalized / distance;
+                }
+            }
+        }
+
+        // Weight the vectors
+        attractionVector *= attractionWeight;
+        repulsionVector *= repulsionWeight;
+
+        // Combine vectors
+        Vector3 resultantVector = attractionVector + repulsionVector;
+
+        // Normalize the resultant vector
+        Vector3 moveDirection = resultantVector.normalized;
+
+        // Update zombie rotation based on the desired direction
+        SetAgentDirection();
+
+        // Update zombie speed based on distance
+        SetAgentSpeed();
+
+        // Update zombie position based on the desired direction and speed
+        //SetAgentPosition(moveDirection);
     }
     void SetAgentSpeed()
     {
@@ -264,7 +314,5 @@ else if (hp <= 0 && killZombieHasRun == false)
             }
 
         }
-
-        agent.speed = currentAgentSpeed;
     }
 }

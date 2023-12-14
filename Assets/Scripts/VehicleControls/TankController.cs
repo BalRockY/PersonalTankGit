@@ -92,7 +92,7 @@ public class TankController : MonoBehaviour
     {
         maxSpeed = 3;
         turnFactor = 2;
-        accelerationFactor = 10;
+        accelerationFactor = 40;
         
     }
 
@@ -121,6 +121,7 @@ public class TankController : MonoBehaviour
         PlayAnimation();
         PlayDriveSounds();
         SpawnLandMine();
+
         /*
         if (speed > 0)
         {

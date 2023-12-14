@@ -106,7 +106,7 @@ public class RoundManager : MonoBehaviour
         
 
         // Find NavMesh
-        surface = GameObject.Find("NavMesh").GetComponent<NavMeshSurface>();
+        //surface = GameObject.Find("NavMesh").GetComponent<NavMeshSurface>();
 
         // Find Camera Controller
         camControl = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
@@ -204,7 +204,7 @@ public class RoundManager : MonoBehaviour
 
 
         
-        //isRaining = true;
+        isRaining = true;
         if(isRaining)
         {
             StartRain();
@@ -318,8 +318,6 @@ IEnumerator RainMover(float interval)
 
         Vector3 particlePos = new Vector3(theTank.transform.position.x, theTank.transform.position.y, -45f);
         rainParcticles.transform.position = particlePos;
-        Debug.Log("particles pos " + rainParcticles.transform.position);
-        Debug.Log("tank pos: " + theTank.transform.position);
         yield return new WaitForSeconds(interval);
         if(isRaining)
         {
