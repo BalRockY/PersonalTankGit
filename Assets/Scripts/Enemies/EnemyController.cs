@@ -7,7 +7,7 @@ public class EnemyController : MonoBehaviour
 {
     // Navigation Variables
     private Vector3 target;
-    //NavMeshAgent agent;
+    NavMeshAgent agent;
     private GameObject player;
     [SerializeField] private float rotationSpeed;
     private float distanceToPlayer;
@@ -74,9 +74,9 @@ public class EnemyController : MonoBehaviour
         tank = player.transform;
 
         // Setup Navigation
-        //agent = GetComponent<NavMeshAgent>();
-        //agent.updateRotation = false;
-        //agent.updateUpAxis = false;
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
 
         // Setup Collision
         collider2D = this.GetComponent<BoxCollider2D>();
@@ -227,10 +227,11 @@ else if (hp <= 0 && killZombieHasRun == false)
     void SetAgentPosition()
     {
         // NavMesh:
-        //agent.SetDestination(new Vector3(target.x, target.y, transform.position.z));
+        agent.SetDestination(new Vector3(target.x, target.y, transform.position.z));
 
-        distanceToPlayer = Vector2.Distance(transform.position, target);
-        transform.position = Vector2.MoveTowards(this.transform.position, target, currentAgentSpeed * Time.deltaTime);
+        // Homemade AI:
+        /*distanceToPlayer = Vector2.Distance(transform.position, target);
+        transform.position = Vector2.MoveTowards(this.transform.position, target, currentAgentSpeed * Time.deltaTime);*/
     }
 
     void SetAgentDirection()
@@ -314,5 +315,6 @@ else if (hp <= 0 && killZombieHasRun == false)
             }
 
         }
+        agent.speed = currentAgentSpeed;
     }
 }

@@ -77,7 +77,6 @@ public class TankController : MonoBehaviour
     private void Start()
     {
         ps.Stop();
-        SetStats();
         aSource.volume = 0.15f;
 
         //Audio Source setup
@@ -86,14 +85,6 @@ public class TankController : MonoBehaviour
         idling = AudioManager.Instance.idleMotor;
         aSource.clip = idling;
         aSource.Play();
-    }
-
-    private void SetStats()
-    {
-        maxSpeed = 3;
-        turnFactor = 2;
-        accelerationFactor = 40;
-        
     }
 
     public IEnumerator Die(float dietime)

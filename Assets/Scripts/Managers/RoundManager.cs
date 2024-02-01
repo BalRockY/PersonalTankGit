@@ -106,7 +106,7 @@ public class RoundManager : MonoBehaviour
         
 
         // Find NavMesh
-        //surface = GameObject.Find("NavMesh").GetComponent<NavMeshSurface>();
+        surface = GameObject.Find("NavMesh").GetComponent<NavMeshSurface>();
 
         // Find Camera Controller
         camControl = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
@@ -202,8 +202,9 @@ public class RoundManager : MonoBehaviour
         camControl.FindTank();
         theTank = GameObject.FindGameObjectWithTag("Tank");
 
+        SpawnArenaLevel();
 
-        
+
         isRaining = true;
         if(isRaining)
         {
@@ -214,8 +215,7 @@ public class RoundManager : MonoBehaviour
 
 
 
-        // Build Navigation Mesh
-        //surface.BuildNavMesh();
+        
 
         // ADD ROUND START COUNT DOWN
         
@@ -227,7 +227,8 @@ public class RoundManager : MonoBehaviour
         // Reference complete level-area
         //caravanImage = GameObject.Find("CaravanPicture");
 
-
+        // Build Navigation Mesh
+        surface.BuildNavMesh();
         yield return new WaitForEndOfFrame();
 
         
@@ -402,7 +403,8 @@ IEnumerator RainMover(float interval)
             }
         }
 
-        if (metalWallSpawnPositions == null || wall_1x1 == null)
+        // Scriptable object position data wall spawn
+        /*if (metalWallSpawnPositions == null || wall_1x1 == null)
         {
             Debug.LogError("PositionData or objectPrefab is not assigned!");
             return;
@@ -411,7 +413,7 @@ IEnumerator RainMover(float interval)
         foreach (Vector3 position in metalWallSpawnPositions.positions)
         {
             Instantiate(wall_1x1, position, Quaternion.identity);
-        }
+        }*/
 
     }
     public IEnumerator SpawnPickUp()
@@ -448,7 +450,7 @@ IEnumerator RainMover(float interval)
             Vector3 enemySpawnLoc;
             do
             {
-                enemySpawnLoc = new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), 0);
+                enemySpawnLoc = new Vector3(Random.Range(-45, 45), Random.Range(-45, 45), 0);
             } while (IsSpawnLocationInsideFrustum(enemySpawnLoc, mainCamera, Mathf.Abs(mainCamera.transform.position.z)));
             for (int i = 0; i < enemyClusterCount; i++)
             {
