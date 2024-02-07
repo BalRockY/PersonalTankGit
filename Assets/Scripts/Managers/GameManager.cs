@@ -131,6 +131,4 @@ public enum GameState
     RoundOver,
     RestartGame,
     RoundWon,
-    OnFoot,
-    InVehicle
 }

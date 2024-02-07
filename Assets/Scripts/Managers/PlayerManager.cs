@@ -27,7 +27,6 @@ public class PlayerManager : MonoBehaviour
     public int lvl;
     public int exp;
     public int expReq;
-    public bool inVehicle;
 
     // Tank Stats
     public float turretRotationSpeed;
@@ -83,17 +82,6 @@ public class PlayerManager : MonoBehaviour
             case GameState.RoundWon:
                 break;
 
-            case GameState.OnFoot:
-                inVehicle = false;
-                tankConRef.enabled = false;
-                Debug.Log("OnFoot gamestate");
-                break;
-
-            case GameState.InVehicle:
-                inVehicle = true;
-                tankConRef.enabled = true;
-                break;
-
             default:
                 break;
         }
@@ -101,7 +89,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        VehicleEnterExit();
+        EnterExitVehicle();
     }
 
     // Player Setup
@@ -115,17 +103,6 @@ public class PlayerManager : MonoBehaviour
         exp = 0;
         expReq = 100;
         MaxSpeed = tankConRef.maxSpeed;
-    }
-
-    void VehicleEnterExit()
-    {
-        if(Input.GetKeyDown(KeyCode.F))
-        {
-            if(inVehicle)
-            {
-                GameManager.Instance.UpdateGameState(GameState.OnFoot);
-            }
-        }
     }
 
     // Player Hit By Enemy
@@ -145,7 +122,10 @@ public class PlayerManager : MonoBehaviour
         kills++;
     }
 
+    void EnterExitVehicle()
+    {
 
+    }
 
     /*
     // Gain EXP 
