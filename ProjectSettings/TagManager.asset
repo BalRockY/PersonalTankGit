@@ -16,6 +16,8 @@ TagManager:
   - SplatAnim
   - Collision
   - Mine
+  - EnterVehicle
+  - ExitVehicle
   layers:
   - Default
   - TransparentFX

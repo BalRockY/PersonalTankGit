@@ -1036,6 +1036,69 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &4713042260511206776
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3009762184316354709}
+  m_Layer: 3
+  m_Name: EnterVehicleRadius
+  m_TagString: EnterVehicle
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3009762184316354709
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4713042260511206776}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 2.3508, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2115624721157956669}
+  m_Father: {fileID: 8051467624115152054}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5027354554301924508
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2115624721157956669}
+  m_Layer: 3
+  m_Name: ExitVehicle
+  m_TagString: ExitVehicle
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2115624721157956669
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5027354554301924508}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.03, y: 0.15, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3009762184316354709}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5088221439593681109
 GameObject:
   m_ObjectHideFlags: 0
@@ -2313,8 +2376,9 @@ Transform:
   - {fileID: 8051467623960027974}
   - {fileID: 8051467623115720865}
   - {fileID: 712408911812337133}
-  - {fileID: 811300168469668215}
+  - {fileID: 3998544771577178089}
   - {fileID: 8215796613737508694}
+  - {fileID: 3009762184316354709}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2357,7 +2421,6 @@ MonoBehaviour:
   decelerationDrag: 7
   maxSpeed: 3
   reverseMaxSpeedFactor: 1
-  glimpseTime: 1
   speed: 0
   aSource: {fileID: 0}
   deathExplosion: {fileID: 8300000, guid: 55dbfe712244a8f4095e1c679168d755, type: 3}
@@ -2965,7 +3028,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!1001 &8003907211762595695
+--- !u!1001 &5993280994022060529
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -2975,10 +3038,6 @@ PrefabInstance:
     - target: {fileID: 4787774045301702865, guid: 7a143ba0b797cd648892c9b3ab0cb7cb, type: 3}
       propertyPath: m_Name
       value: TankExplosion
-      objectReference: {fileID: 0}
-    - target: {fileID: 4787774045301702865, guid: 7a143ba0b797cd648892c9b3ab0cb7cb, type: 3}
-      propertyPath: m_Layer
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7228776613353264664, guid: 7a143ba0b797cd648892c9b3ab0cb7cb, type: 3}
       propertyPath: m_RootOrder
@@ -3026,8 +3085,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a143ba0b797cd648892c9b3ab0cb7cb, type: 3}
---- !u!4 &811300168469668215 stripped
+--- !u!4 &3998544771577178089 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7228776613353264664, guid: 7a143ba0b797cd648892c9b3ab0cb7cb, type: 3}
-  m_PrefabInstance: {fileID: 8003907211762595695}
+  m_PrefabInstance: {fileID: 5993280994022060529}
   m_PrefabAsset: {fileID: 0}

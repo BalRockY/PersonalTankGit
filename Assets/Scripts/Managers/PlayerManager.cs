@@ -36,6 +36,13 @@ public class PlayerManager : MonoBehaviour
     public GameObject tankRef;
     public TankController tankConRef;
     public GunController gunConRef;
+    public Vector3 tankEnterVehicleRadius;
+    public Vector3 exitVehiclePos;
+    public GameObject walkingCharacterPrefab;
+    private GameObject walkingCharacterInstantiatedObject;
+
+    // Boolians
+    bool insideVehicle;
 
 
     void Awake()
@@ -53,6 +60,7 @@ public class PlayerManager : MonoBehaviour
         //Instantiate(snowGeneratorPrefab);
         //StartCoroutine(MoveSnow());
         PlayerSetup();
+        insideVehicle = true;
         
     }
 
@@ -90,6 +98,7 @@ public class PlayerManager : MonoBehaviour
     private void Update()
     {
         EnterExitVehicle();
+        
     }
 
     // Player Setup
@@ -121,10 +130,52 @@ public class PlayerManager : MonoBehaviour
         // Add to killscore
         kills++;
     }
-
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(tankEnterVehicleRadius, 1.2f);
+    }
     void EnterExitVehicle()
     {
+        // Get the position of the tank
+        tankEnterVehicleRadius = GameObject.FindGameObjectWithTag("EnterVehicle").transform.position;
 
+        Collider2D[] enterVehicleArea = Physics2D.OverlapCircleAll(tankEnterVehicleRadius, 1.2f);
+
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            if(insideVehicle == true)
+            {
+                exitVehiclePos = GameObject.FindGameObjectWithTag("ExitVehicle").transform.position;
+                walkingCharacterInstantiatedObject = Instantiate(walkingCharacterPrefab, exitVehiclePos, Quaternion.identity);
+                Debug.Log("Exited Vehicle");
+                tankConRef.enabled = false;
+                gunConRef.enabled = false;
+                insideVehicle = false;
+            }
+            else
+            {
+                bool playerDetected = false;
+                foreach (Collider2D collider in enterVehicleArea)
+                {
+                    if (collider.CompareTag("Player"))
+                    {
+                        playerDetected = true;
+                        break;
+                    }
+                }
+
+                if (playerDetected)
+                {
+                    Destroy(walkingCharacterInstantiatedObject);
+                    Debug.Log("Entered Vehicle");
+                    tankConRef.enabled = true;
+                    gunConRef.enabled = true;
+                    insideVehicle = true;
+                }
+            }
+        }
     }
 
     /*

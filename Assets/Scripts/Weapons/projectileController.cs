@@ -37,7 +37,6 @@ public class projectileController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("projectile hit: " + collision.gameObject);
         
         if(collision.gameObject.tag != "Tank")
         {

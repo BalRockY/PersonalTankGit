@@ -173,7 +173,6 @@ else if (hp <= 0 && killZombieHasRun == false)
         //Debug.Log("agent hit: " + collision.gameObject);
         if (collision.gameObject.tag == "Tank")
         {
-            Debug.Log("enemy hit");
             var chassisHitDmg = tankScript.speed * tankScript.speedAsDmgMultiplier;
             
             hp -= chassisHitDmg;
@@ -214,7 +213,6 @@ else if (hp <= 0 && killZombieHasRun == false)
     {
         if(collision.CompareTag("LeaveStunnedZombie"))
         {
-            Debug.Log("Tank left");
             isStunned = false;
         }
     }

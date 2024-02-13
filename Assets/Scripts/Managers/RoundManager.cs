@@ -98,8 +98,7 @@ public class RoundManager : MonoBehaviour
 
         // Load Resources
         //enemy = Resources.Load<GameObject>("Enemy");
-        level = Resources.Load<GameObject>("Level");
-        theTank = Resources.Load<GameObject>("Tank");        
+        level = Resources.Load<GameObject>("Level");      
         wall_1x2 = Resources.Load<GameObject>("Wall1x2");
         wall_1x1 = Resources.Load<GameObject>("Wall1x1");
         moneyPickup = Resources.Load<GameObject>("MoneyPickUp");
@@ -200,7 +199,6 @@ public class RoundManager : MonoBehaviour
         // Spawn & Setup Tank
         Instantiate(theTank);
         camControl.FindTank();
-        theTank = GameObject.FindGameObjectWithTag("Tank");
 
         SpawnArenaLevel();
 

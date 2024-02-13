@@ -159,7 +159,6 @@ public class GunController : MonoBehaviour
 
         //yield return new WaitForSeconds(reloadSpeed); //extra interval between volleys
         shooting = false;
-        Debug.Log("Machinegun fired");
     }
 
     IEnumerator LightTime(float lt)

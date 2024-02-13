@@ -21,7 +21,6 @@ public class TankController : MonoBehaviour
     float rotationAngle = 0;
     float velocityVsUp = 0;
     [SerializeField]
-    float glimpseTime = 0.2f;
 
     public float speed;
     private bool keepMoving = false;
@@ -150,6 +149,7 @@ public class TankController : MonoBehaviour
         KillOrthogonalVelocity();
         
     }
+
     void SpawnLandMine()
     {
         if(Input.GetKeyDown(KeyCode.Space))
