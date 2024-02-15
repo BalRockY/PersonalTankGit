@@ -42,7 +42,7 @@ public class PlayerManager : MonoBehaviour
     private GameObject walkingCharacterInstantiatedObject;
 
     // Boolians
-    bool insideVehicle;
+    public bool insideVehicle;
 
 
     void Awake()

@@ -220,6 +220,14 @@ else if (hp <= 0 && killZombieHasRun == false)
     // Navigation Functions
     void SetTargetPosition()
     {
+        if(PlayerManager.Instance.insideVehicle == false)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
+        else
+        {
+            player = GameObject.FindGameObjectWithTag("Tank");
+        }
         target = player.transform.position;
     }
     void SetAgentPosition()

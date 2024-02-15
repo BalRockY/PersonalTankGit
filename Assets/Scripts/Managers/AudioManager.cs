@@ -25,7 +25,7 @@ public class AudioManager : MonoBehaviour
                 break;
 
             case GameState.Start:
-
+                PlayMusic();
                 break;
 
             case GameState.Playing:
@@ -42,6 +42,12 @@ public class AudioManager : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    void PlayMusic()
+    {
+        aSourceAM4.clip = musicTrack1;
+        aSourceAM4.Play();
     }
 
     private void Awake()
@@ -97,9 +103,14 @@ public class AudioManager : MonoBehaviour
     // Environment sounds
     public AudioClip rain1;
 
+    // Music
+    public AudioClip musicTrack1;
+
+    // Audio Sources
     public AudioSource aSourceAM;
     public AudioSource aSourceAM2;
     public AudioSource aSourceAM3;
+    public AudioSource aSourceAM4;
 
 
 
