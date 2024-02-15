@@ -66,8 +66,12 @@ public class LandMineController : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
+            // Make sure no other zombies trigger the landmine
             collider.enabled = false;
+
+            // Triggers explosion animation
             landmineAnimator.SetTrigger("ZombieTrigger");
+            
             GameObject[] enemiesNearPointZero = GameObject.FindGameObjectsWithTag("Enemy");
             
             foreach(GameObject enemy in enemiesNearPointZero)
