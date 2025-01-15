@@ -68,6 +68,7 @@ public class AudioManager : MonoBehaviour
         turretEnd = Resources.Load<AudioClip>("Sound/TurretMovement/turret_end");
         beep = Resources.Load<AudioClip>("Sound/MineBeep");
         mineExplosion = Resources.Load<AudioClip>("Sound/MineExplosion");
+        mineDeploy = Resources.Load<AudioClip>("Sound/Deploy_Mine");
 
     }
     //Zombie death
@@ -99,6 +100,7 @@ public class AudioManager : MonoBehaviour
     //Landmine Sounds
     public AudioClip beep;
     public AudioClip mineExplosion;
+    public AudioClip mineDeploy;
 
     // Environment sounds
     public AudioClip rain1;

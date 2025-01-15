@@ -224,7 +224,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 0.4
-  MaxDistance: 10
+  MaxDistance: 8
   Pan2D: 0
   rolloffMode: 2
   BypassEffects: 0
@@ -488,7 +488,7 @@ MonoBehaviour:
   - {x: -0.07347356, y: -0.04499069, z: 0}
   m_ShapePathHash: 1345729742
   m_Mesh: {fileID: 0}
-  m_InstanceId: 34646
+  m_InstanceId: 28388
   m_LocalBounds:
     m_Center: {x: 0.03035596, y: 0.023706608, z: 0}
     m_Extent: {x: 0.14135656, y: 0.107232824, z: 0}

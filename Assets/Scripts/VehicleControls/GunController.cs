@@ -144,7 +144,7 @@ public class GunController : MonoBehaviour
 
             aSourceShoot.clip = gunShot;
             aSourceShoot.pitch = Random.Range(0.95f, 1.05f);
-
+            
             aSourceShoot.Play();            
 
             StartCoroutine(ShowGunshotSprite(interval));
