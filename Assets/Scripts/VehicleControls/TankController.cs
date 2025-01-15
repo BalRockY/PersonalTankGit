@@ -341,9 +341,9 @@ public class TankController : MonoBehaviour
         if(collision.gameObject.CompareTag("Enemy"))
         {
             aSource.pitch = Random.Range(0.92f, 1.08f);
-            if(speed >= 3)
+            if(speed >= 2.5)
                 aSource.PlayOneShot(AudioManager.Instance.zombieHitCarClips[1]);
-            else if(speed < 3)
+            else if(speed < 2.5)
             {
                 aSource.PlayOneShot(AudioManager.Instance.zombieHitCarClips[0]);
             }

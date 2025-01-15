@@ -8,16 +8,19 @@ public class WalkingCharacterController : MonoBehaviour
     [SerializeField] private Rigidbody2D body;
     [SerializeField] private float rotationSpeed;
 
+    [SerializeField] private Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        animator = this.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         Move();
+        PlayAnimation();
     }
 
     void Move()
@@ -42,6 +45,17 @@ public class WalkingCharacterController : MonoBehaviour
         body.velocity = inputVector2 * moveSpeed;
 
     }  
+    void PlayAnimation()
+    {
+        if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        {
+            animator.SetBool("PressingMove", true);
+        }
+        else
+        {
+            animator.SetBool("PressingMove", false);
+        }
+    }
 
 
 }
