@@ -5,11 +5,13 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public GameObject tank;
+    public GameObject walkingCharacter;
     public float duration;
 
     private void Start()
     {
         //FindTank();
+        PlayerManager.Instance.driving = true;
     }
     public void FindTank()
     {
@@ -18,13 +20,27 @@ public class CameraController : MonoBehaviour
     }
     private void Update()
     {
-        if (tank != null)
-            transform.position = new Vector3(tank.transform.position.x, tank.transform.position.y, transform.position.z);
-        else
+        if(PlayerManager.Instance.driving == true)
         {
-            tank = GameObject.FindGameObjectWithTag("Tank");
-            transform.position = this.transform.position;
-            Debug.Log("this is running.");
+            if (tank != null)
+                transform.position = new Vector3(tank.transform.position.x, tank.transform.position.y, transform.position.z);
+            else
+            {
+                tank = GameObject.FindGameObjectWithTag("Tank");
+            }
+        }
+        
+        else if(PlayerManager.Instance.walking == true)
+        {
+            if (walkingCharacter != null)
+            {
+                transform.position = new Vector3(walkingCharacter.transform.position.x, walkingCharacter.transform.position.y, transform.position.z);
+            }
+                
+            else
+            {
+                walkingCharacter = GameObject.FindGameObjectWithTag("Player");
+            }
         }
             
            

@@ -28,9 +28,14 @@ public class PlayerManager : MonoBehaviour
     public int exp;
     public int expReq;
 
+    // Player states
+    public bool driving = false;
+    public bool walking = false;
+
     // Tank Stats
     public float turretRotationSpeed;
     public float firingSpeed;
+    public float tankMass;
 
     // References
     public GameObject tankRef;
@@ -40,6 +45,7 @@ public class PlayerManager : MonoBehaviour
     public Vector3 exitVehiclePos;
     public GameObject walkingCharacterPrefab;
     private GameObject walkingCharacterInstantiatedObject;
+    private AudioManager aManagerRef;
 
     // Boolians
     public bool insideVehicle;
@@ -61,6 +67,7 @@ public class PlayerManager : MonoBehaviour
         //StartCoroutine(MoveSnow());
         PlayerSetup();
         insideVehicle = true;
+        aManagerRef = AudioManager.Instance;
         
     }
 
@@ -147,12 +154,18 @@ public class PlayerManager : MonoBehaviour
         {
             if(insideVehicle == true)
             {
+                aManagerRef.aSourceAM4.PlayOneShot(aManagerRef.tankVaultClose3);
                 exitVehiclePos = GameObject.FindGameObjectWithTag("ExitVehicle").transform.position;
                 walkingCharacterInstantiatedObject = Instantiate(walkingCharacterPrefab, exitVehiclePos, Quaternion.identity);
                 Debug.Log("Exited Vehicle");
+                tankConRef.aSource.enabled = false;
+                tankConRef.animator.enabled = false;
                 tankConRef.enabled = false;
                 gunConRef.enabled = false;
                 insideVehicle = false;
+                tankRef.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll; // freeze tank
+                driving = false;
+                walking = true;
             }
             else
             {
@@ -170,9 +183,15 @@ public class PlayerManager : MonoBehaviour
                 {
                     Destroy(walkingCharacterInstantiatedObject);
                     Debug.Log("Entered Vehicle");
+                    aManagerRef.aSourceAM4.PlayOneShot(aManagerRef.tankVaultOpen1);
                     tankConRef.enabled = true;
+                    tankConRef.aSource.enabled = true;
+                    tankConRef.animator.enabled = true;
                     gunConRef.enabled = true;
                     insideVehicle = true;
+                    tankRef.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None; // unfreeze tank
+                    driving = true;
+                    walking = false;
                 }
             }
         }

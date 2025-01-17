@@ -45,6 +45,8 @@ public class RoundManager : MonoBehaviour
     [SerializeField] private GameObject rainImpactPrefab;
     [SerializeField] private float rainImpactInterval;
     [SerializeField] private Vector3 theSunStartPos;
+    [SerializeField] private Vector3 theSunTargetPos;
+    private bool sunSpawned = false;
 
     // Obstacle Variables
     private GameObject wall_1x2;
@@ -125,8 +127,11 @@ public class RoundManager : MonoBehaviour
     {
         // Set Spawn Interval
         enemySpawnInterval = enemySpawnInterval * spawnScaler;
-
-        Sunwalk();
+        if(sunSpawned)
+        {
+            Sunwalk();
+        }
+        
 
         //  HandleOpenGates()
          
@@ -208,16 +213,21 @@ public class RoundManager : MonoBehaviour
         {
             StartRain();
         }
-        Instantiate(theSun);
-        theSun.transform.position = theSunStartPos;
-
-
-
         
+        theSun = Instantiate(theSun);
+        theSun.transform.position = theSunStartPos;
+        sunSpawned = true;
+        
+
+
+
+
+
+
 
         // ADD ROUND START COUNT DOWN
-        
-        
+
+
         SpawnObstacles();
         // Start Spawn Enemies
         StartCoroutine(ZombieSpawner());
@@ -255,8 +265,7 @@ public class RoundManager : MonoBehaviour
 
     public void Sunwalk()
     {
-        
-        Vector3 targetPos = new Vector3(230f, theSun.transform.position.y, theSun.transform.position.z);
+        Vector3 targetPos = theSunTargetPos;
 
         theSun.transform.position = Vector3.MoveTowards(theSun.transform.position, targetPos, sunSpeed * Time.deltaTime);
 

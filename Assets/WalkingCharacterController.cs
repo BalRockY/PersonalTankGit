@@ -4,23 +4,61 @@ using UnityEngine;
 
 public class WalkingCharacterController : MonoBehaviour
 {
+    // Movement
     [SerializeField] private float moveSpeed;
-    [SerializeField] private Rigidbody2D body;
     [SerializeField] private float rotationSpeed;
 
-    [SerializeField] private Animator animator;
+    // Gun 
+    [SerializeField] private float _gunfireSpriteAppearenceTime;
+    [SerializeField] private Sprite _gunfireSprite1;
+    [SerializeField] private Sprite _gunfireSprite2;
+    [SerializeField] private Sprite _gunfireSprite3;
+    [SerializeField] private Sprite _gunfireSprite4;
+    [SerializeField] private GameObject _gunfireObject;
+    private int _gunfireSpriteCounter;
+    private List<Sprite> _gunfireSpriteList;
+    [SerializeField] private float _firingSpeed;
+    private bool _shooting;
+
+
+    //[SerializeField] private Animator animator;
+    [SerializeField] private Rigidbody2D body;
 
     // Start is called before the first frame update
     void Start()
     {
-        animator = this.GetComponent<Animator>();
+        //animator = this.GetComponent<Animator>();
+
+        _gunfireSpriteList = new List<Sprite> { _gunfireSprite1, _gunfireSprite2, _gunfireSprite3, _gunfireSprite4 };
+        _gunfireSpriteCounter = _gunfireSpriteList.Count;
+        Debug.Log("gunfire sprite count = " + _gunfireSpriteCounter + " and gunfire sprite list contains: ");
+        foreach (Sprite obj in _gunfireSpriteList)
+        {
+            Debug.Log("Added GameObject: " + obj.name);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         Move();
-        PlayAnimation();
+        //PlayWalkAnimation();
+
+        Shoot();
+    }
+
+    void Shoot()
+    {
+        if (Input.GetKey(KeyCode.Mouse0) && _shooting == false)
+        {
+
+            StartCoroutine(MachinegunFire());
+
+        }
+    }
+    private void FixedUpdate()
+    {
+        Rotate();
     }
 
     void Move()
@@ -30,22 +68,47 @@ public class WalkingCharacterController : MonoBehaviour
         inputVector2.x = Input.GetAxisRaw("Horizontal");
         inputVector2.y = Input.GetAxisRaw("Vertical");
 
-        // Normalize the input vector if it's not zero
-        if (inputVector2 != Vector2.zero)
+        if (inputVector2.magnitude > 1) // Normalize speed so diagonal movement is not double speed
         {
-            float angle = Mathf.Atan2(inputVector2.y, inputVector2.x) * Mathf.Rad2Deg + 90f;
-            Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-            // Rotate the character towards the direction it is facing
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-            inputVector2.Normalize();
+            inputVector2 = inputVector2.normalized; 
         }
 
-        // Apply the normalized input vector to the velocity
         body.velocity = inputVector2 * moveSpeed;
 
-    }  
-    void PlayAnimation()
+    }
+
+    IEnumerator MachinegunFire()
+    {
+        _shooting = true;
+        StartCoroutine(ShowGunshotSprite(_gunfireSpriteAppearenceTime));
+        yield return new WaitForSeconds(_firingSpeed);
+        _shooting = false;
+    }
+
+        void Rotate()
+    {
+        Vector2 lookDir = InputManager.Instance.MousePosition() - transform.position; // Vector from mouse to player
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f; // Calculate the angle of the vector. The -90 is an offset that apparently is required to fit the angle.
+        body.rotation = angle; // Rotate the object
+    }
+
+    IEnumerator ShowGunshotSprite(float seconds)
+    {
+        _gunfireObject.gameObject.GetComponent<SpriteRenderer>().sprite = _gunfireSpriteList[_gunfireSpriteCounter];
+        _gunfireObject.SetActive(true);
+
+        yield return new WaitForSeconds(seconds);
+        
+        _gunfireObject.SetActive(false);
+
+        _gunfireSpriteCounter++;
+
+        if (_gunfireSpriteCounter >= _gunfireSpriteList.Count)
+        {
+            _gunfireSpriteCounter = 0;
+        }
+    }
+    /*void PlayWalkAnimation()
     {
         if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
@@ -55,7 +118,7 @@ public class WalkingCharacterController : MonoBehaviour
         {
             animator.SetBool("PressingMove", false);
         }
-    }
+    }*/
 
 
 }

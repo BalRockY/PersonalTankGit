@@ -11,7 +11,7 @@ public class AudioManager : MonoBehaviour
         get
         {
             if (_instance is null)
-                Debug.LogError("AudioManager Manager is NULL");
+                Debug.LogError("Audio Manager is NULL");
 
             return _instance;
         }
@@ -69,7 +69,10 @@ public class AudioManager : MonoBehaviour
         beep = Resources.Load<AudioClip>("Sound/MineBeep");
         mineExplosion = Resources.Load<AudioClip>("Sound/MineExplosion");
         mineDeploy = Resources.Load<AudioClip>("Sound/Deploy_Mine");
-
+        tankVaultClose = Resources.Load<AudioClip>("Sound/TankVaultShut");
+        tankVaultClose2 = Resources.Load<AudioClip>("Sound/TankVaultShut2");
+        tankVaultClose3 = Resources.Load<AudioClip>("Sound/TankVaultShut3");
+        tankVaultOpen1 = Resources.Load<AudioClip>("Sound/TankVaultOpen1");
     }
     //Zombie death
     public AudioClip splatSound;
@@ -94,6 +97,13 @@ public class AudioManager : MonoBehaviour
     public AudioClip turretStart;
     public AudioClip turretEnd;
     public AudioClip turretMid;
+
+    //Tank close vault sound
+    public AudioClip tankVaultClose;
+    public AudioClip tankVaultClose2;
+    public AudioClip tankVaultClose3;
+    public AudioClip tankVaultOpen1;
+
     //Alternative sound
     public AudioClip turretRotation;
 

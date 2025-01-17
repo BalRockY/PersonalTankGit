@@ -127,8 +127,6 @@ public class GunController : MonoBehaviour
         {
             shotSpriteCount = 0;
         }
-        
-
     }
     
     IEnumerator MachinegunFire()
