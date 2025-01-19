@@ -73,11 +73,15 @@ public class AudioManager : MonoBehaviour
         tankVaultClose2 = Resources.Load<AudioClip>("Sound/TankVaultShut2");
         tankVaultClose3 = Resources.Load<AudioClip>("Sound/TankVaultShut3");
         tankVaultOpen1 = Resources.Load<AudioClip>("Sound/TankVaultOpen1");
+        subMachineGun_Silenced = Resources.Load<AudioClip>("Sound/suppressed-submachinegun");
     }
     //Zombie death
     public AudioClip splatSound;
     public AudioClip wetSplat;
     public AudioClip death1;
+
+    // Shooting sounds
+    public AudioClip subMachineGun_Silenced;
 
     //Bullet hit sounds
     public AudioClip[] bulletHitFleshClips;
@@ -123,9 +127,4 @@ public class AudioManager : MonoBehaviour
     public AudioSource aSourceAM2;
     public AudioSource aSourceAM3;
     public AudioSource aSourceAM4;
-
-
-
-
-
 }

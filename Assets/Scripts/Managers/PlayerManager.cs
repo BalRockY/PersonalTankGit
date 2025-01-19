@@ -39,13 +39,15 @@ public class PlayerManager : MonoBehaviour
 
     // References
     public GameObject tankRef;
-    public TankController tankConRef;
+    private TankController tankConRef;
+    private WalkingCharacterController walkingConRef;
     public GunController gunConRef;
     public Vector3 tankEnterVehicleRadius;
     public Vector3 exitVehiclePos;
     public GameObject walkingCharacterPrefab;
     private GameObject walkingCharacterInstantiatedObject;
     private AudioManager aManagerRef;
+    
 
     // Boolians
     public bool insideVehicle;
@@ -150,12 +152,13 @@ public class PlayerManager : MonoBehaviour
         Collider2D[] enterVehicleArea = Physics2D.OverlapCircleAll(tankEnterVehicleRadius, 1.2f);
 
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             if(insideVehicle == true)
             {
                 aManagerRef.aSourceAM4.PlayOneShot(aManagerRef.tankVaultClose3);
                 exitVehiclePos = GameObject.FindGameObjectWithTag("ExitVehicle").transform.position;
+                tankConRef.SetAudioListener(false); // Disable audio listener on tank while walking
                 walkingCharacterInstantiatedObject = Instantiate(walkingCharacterPrefab, exitVehiclePos, Quaternion.identity);
                 Debug.Log("Exited Vehicle");
                 tankConRef.aSource.enabled = false;
@@ -182,6 +185,7 @@ public class PlayerManager : MonoBehaviour
                 if (playerDetected)
                 {
                     Destroy(walkingCharacterInstantiatedObject);
+                    tankConRef.SetAudioListener(true);
                     Debug.Log("Entered Vehicle");
                     aManagerRef.aSourceAM4.PlayOneShot(aManagerRef.tankVaultOpen1);
                     tankConRef.enabled = true;

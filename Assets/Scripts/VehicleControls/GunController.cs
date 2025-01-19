@@ -151,8 +151,6 @@ public class GunController : MonoBehaviour
 
             volleyFiringSpeed = PlayerManager.Instance.firingSpeed;
             yield return new WaitForSeconds(volleyFiringSpeed);
-
-            
         }
 
         //yield return new WaitForSeconds(reloadSpeed); //extra interval between volleys
@@ -165,6 +163,10 @@ public class GunController : MonoBehaviour
         gunflashBackingLeft.SetActive(true);
         gunflashRight.SetActive(true);
         gunflashBackingRight.SetActive(true);
+        float randomRotationValueBacking_Left = Random.Range(gunflashBackingLeft.transform.rotation.z - 5f, gunflashBackingLeft.transform.rotation.z + 5f); // vary backing light rotation randomly
+        float randomRotationValueBacking_Right = Random.Range(gunflashBackingRight.transform.rotation.z - 5f, gunflashBackingRight.transform.rotation.z + 5f); // vary backing light rotation randomly
+        gunflashBackingLeft.transform.Rotate(gunflashBackingLeft.transform.rotation.x, gunflashBackingLeft.transform.rotation.y, randomRotationValueBacking_Left);
+        gunflashBackingRight.transform.Rotate(gunflashBackingRight.transform.rotation.x, gunflashBackingRight.transform.rotation.y, randomRotationValueBacking_Right);
         yield return new WaitForSeconds(lt);
         gunflashLeft.SetActive(false);
         gunflashBackingLeft.SetActive(false);

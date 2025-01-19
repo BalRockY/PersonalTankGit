@@ -15,10 +15,16 @@ public class WalkingCharacterController : MonoBehaviour
     [SerializeField] private Sprite _gunfireSprite3;
     [SerializeField] private Sprite _gunfireSprite4;
     [SerializeField] private GameObject _gunfireObject;
-    private int _gunfireSpriteCounter;
+    [SerializeField] private GameObject _gunFlash;
+    [SerializeField] private GameObject _gunFlashBacking;
+    private int _gunfireSpriteCounter = 0;
     private List<Sprite> _gunfireSpriteList;
     [SerializeField] private float _firingSpeed;
-    private bool _shooting;
+    private bool _shooting = false;
+    private AudioClip _subMachineGun_Silenced;
+
+    // Audio
+    private AudioSource _aSource;
 
 
     //[SerializeField] private Animator animator;
@@ -28,14 +34,14 @@ public class WalkingCharacterController : MonoBehaviour
     void Start()
     {
         //animator = this.GetComponent<Animator>();
+        _aSource = this.GetComponent<AudioSource>();
 
         _gunfireSpriteList = new List<Sprite> { _gunfireSprite1, _gunfireSprite2, _gunfireSprite3, _gunfireSprite4 };
-        _gunfireSpriteCounter = _gunfireSpriteList.Count;
-        Debug.Log("gunfire sprite count = " + _gunfireSpriteCounter + " and gunfire sprite list contains: ");
-        foreach (Sprite obj in _gunfireSpriteList)
-        {
-            Debug.Log("Added GameObject: " + obj.name);
-        }
+
+        _gunFlash.SetActive(false);
+        _gunfireObject.SetActive(false);
+        _gunFlashBacking.SetActive(false);
+        _subMachineGun_Silenced = AudioManager.Instance.subMachineGun_Silenced;
     }
 
     // Update is called once per frame
@@ -80,26 +86,34 @@ public class WalkingCharacterController : MonoBehaviour
     IEnumerator MachinegunFire()
     {
         _shooting = true;
-        StartCoroutine(ShowGunshotSprite(_gunfireSpriteAppearenceTime));
+        StartCoroutine(GunFireFlash(_gunfireSpriteAppearenceTime));
+        _aSource.pitch = Random.Range(0.94f, 1.06f);
+        _aSource.PlayOneShot(_subMachineGun_Silenced);
         yield return new WaitForSeconds(_firingSpeed);
         _shooting = false;
     }
 
-        void Rotate()
+    void Rotate()
     {
         Vector2 lookDir = InputManager.Instance.MousePosition() - transform.position; // Vector from mouse to player
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f; // Calculate the angle of the vector. The -90 is an offset that apparently is required to fit the angle.
         body.rotation = angle; // Rotate the object
     }
 
-    IEnumerator ShowGunshotSprite(float seconds)
+    IEnumerator GunFireFlash(float seconds)
     {
         _gunfireObject.gameObject.GetComponent<SpriteRenderer>().sprite = _gunfireSpriteList[_gunfireSpriteCounter];
         _gunfireObject.SetActive(true);
+        _gunFlash.SetActive(true);
+        _gunFlashBacking.SetActive(true);
+        float randomRotationValue = Random.Range(_gunFlashBacking.transform.rotation.z-5f, _gunFlashBacking.transform.rotation.z + 5f); // vary backing light rotation randomly
+        _gunFlashBacking.transform.Rotate(_gunFlashBacking.transform.rotation.x, _gunFlashBacking.transform.rotation.y, randomRotationValue);
 
         yield return new WaitForSeconds(seconds);
         
         _gunfireObject.SetActive(false);
+        _gunFlash.SetActive(false);
+        _gunFlashBacking.SetActive(false);
 
         _gunfireSpriteCounter++;
 

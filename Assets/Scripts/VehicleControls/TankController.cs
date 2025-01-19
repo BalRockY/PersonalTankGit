@@ -20,7 +20,6 @@ public class TankController : MonoBehaviour
     float steeringInput = 0;
     float rotationAngle = 0;
     float velocityVsUp = 0;
-    [SerializeField]
 
     public float speed;
     private bool keepMoving = false;
@@ -28,6 +27,8 @@ public class TankController : MonoBehaviour
     public AudioClip deathExplosion;
     private ParticleSystem ps;
     private Collider2D collider;
+
+    [SerializeField] private AudioListener _aListener;
 
     public bool dead = false;
     [SerializeField]
@@ -63,6 +64,7 @@ public class TankController : MonoBehaviour
 
     private void Awake()
     {
+        _aListener = this.GetComponent<AudioListener>();
         tank = this.gameObject;
         collider = transform.Find("Collision").gameObject.GetComponent<EdgeCollider2D>();
         aSource = this.gameObject.GetComponent<AudioSource>();
@@ -84,6 +86,11 @@ public class TankController : MonoBehaviour
         idling = AudioManager.Instance.idleMotor;
         aSource.clip = idling;
         aSource.Play();
+    }
+
+    public void SetAudioListener(bool boolSetter)
+    {
+        _aListener.enabled = boolSetter;
     }
 
     public IEnumerator Die(float dietime)
